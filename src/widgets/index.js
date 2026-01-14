@@ -6,3 +6,5 @@ export { Qualities } from "./qualities/qualities.jsx";
 export { Reservation } from "./reservation/reservation.jsx";
 export { Team } from "./team/team.jsx";
 export { WhoWeAre } from "./who-we-are/who-we-are.jsx";
+export { AdminMenu } from "./admin-menu/admin-menu.jsx";
+export { SideBar } from "./side-bar/side-bar.jsx";

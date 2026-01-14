@@ -1,0 +1,1 @@
+export { NewProductCard } from "./new-product-card/new-product-card.jsx"

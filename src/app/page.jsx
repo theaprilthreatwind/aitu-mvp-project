@@ -1,5 +1,5 @@
 import { About, HeroSection, Reservation, Team, WhoWeAre, Qualities, Menu, Footer} from "@/widgets";
-import "./App.css"
+import "./page.css"
 export default function HomePage() {
   return (
     <>
