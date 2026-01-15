@@ -1,10 +1,9 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { ProductCard } from "@/entities";
 import { Popover } from "react-tiny-popover";
 import { UXButton, UXInput } from "@/shared";
-import Modal from "react-modal";
 import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 
@@ -97,7 +96,7 @@ export function AdminMenu() {
       const description = formData.get("description");
       console.log({ title, description });
       const response = await fetchNewCategory(title, description);
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.error(error.message);
     }
@@ -108,50 +107,7 @@ export function AdminMenu() {
         <div className="">Menu Managament</div>
       </header>
       <section className="px-6 mt-4 flex flex-row justify-end">
-        <Modal isOpen={isAddCategoryOpen} contentLabel="category">
-          <div>
-            <div className="flex flex-col">
-              <form action={submitNewCategory}>
-                <div className="flex flex-col">
-                  <label className="text-2xl font-bold mb-2 ">
-                    Name of Category
-                  </label>
-                  <UXInput type="text" name="title" />
-                  <label className="text-2xl font-bold mb-2 ">
-                    Description
-                  </label>
-                  <UXInput type="text" name="description" />
-                </div>
-                <div className="flex mt-4 justify-between">
-                  <UXButton size="medium" color="red" type="submit">
-                    New category
-                  </UXButton>
-                  <UXButton
-                    type="button"
-                    size="small"
-                    color="sky"
-                    onClick={() => {
-                      setIsAddCategoryOpen((prev) => false);
-                    }}
-                  >
-                    exit
-                  </UXButton>
-                </div>
-              </form>
-            </div>
-          </div>
-        </Modal>
-        <UXButton
-          type="button"
-          size="medium"
-          color="sky"
-          onClick={() => {
-            setIsAddCategoryOpen((prev) => true);
-          }}
-        >
-          Add new Category
-        </UXButton>
-        {/* <Popover
+        <Popover
           isOpen={isAddCategoryOpen}
           onClickOutside={() => setIsAddCategoryOpen(false)}
           content={() => (
@@ -162,11 +118,27 @@ export function AdminMenu() {
                     <label className="text-2xl font-bold mb-2 ">
                       Name of Category
                     </label>
-                    <UXInput type="text" />
+                    <UXInput type="text" name="title" />
+                    <label className="text-2xl font-bold mb-2 ">
+                      Description
+                    </label>
+                    <UXInput type="text" name="description" />
                   </div>
-                  <UXButton size="small" customClassName="w-full mt-2">
-                    New category
-                  </UXButton>
+                  <div className="flex mt-4 justify-between gap-4">
+                    <UXButton size="medium" color="red" type="submit">
+                      New category
+                    </UXButton>
+                    <UXButton
+                      type="button"
+                      size="medium"
+                      color="sky"
+                      onClick={() => {
+                        setIsAddCategoryOpen((prev) => false);
+                      }}
+                    >
+                      exit
+                    </UXButton>
+                  </div>
                 </form>
               </div>
             </div>
@@ -184,7 +156,7 @@ export function AdminMenu() {
           >
             Add new Category
           </UXButton>
-        </Popover> */}
+        </Popover>
       </section>
       <section className="pl-4 mt-4 overflow-hidden box-border">
         {menu.map((value) => {
@@ -199,7 +171,11 @@ export function AdminMenu() {
                       description={dish.description}
                       price={dish.price}
                       key={productIndex}
-                    />
+                    >
+                      <UXButton variant="primary" size="small" color="red">
+                        Изменить
+                      </UXButton>
+                    </ProductCard>
                   );
                 })}
                 <NewProductCard categoryId={value.categoryId} />

@@ -116,8 +116,11 @@ export function Menu() {
                 description={dish.description}
                 price={dish.price}
                 key={index}
-                onClick={() => alert("заказан")}
-              />
+              >
+                <UXButton size="small" color="red">
+                  Заказать
+                </UXButton>
+              </ProductCard>
             ))}
           </div>
         </div>

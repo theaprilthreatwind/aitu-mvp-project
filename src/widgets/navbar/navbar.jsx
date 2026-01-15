@@ -25,9 +25,12 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <Link to="/register" className="menuBtn">
+          <a href="/login" className="menuBtn">
             Login
-          </Link>
+          </a>
+          <a href="/registration" className="menuBtn">
+            singIn
+          </a>
         </div>
         <div className="hamburger" onClick={() => setShow(!show)}>
           <GiHamburgerMenu />

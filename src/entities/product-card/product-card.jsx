@@ -1,6 +1,6 @@
 import { UXButton } from "@/shared";
 
-export function ProductCard({ name, description, price, photo }) {
+export function ProductCard({ name, description, price, photo, children }) {
   return (
     <div className="">
       <div className=" w-70 w-max-50 rounded-2xl shadow-xl text-gray-800 overflow-hidden">
@@ -13,9 +13,7 @@ export function ProductCard({ name, description, price, photo }) {
           <div className="flex justify-end">
             <div className="flex items-center text-xl gap-2">
               <div>{price}</div>
-              <UXButton size="small" color="red">
-                Заказать
-              </UXButton>
+              {children}
             </div>
           </div>
         </div>

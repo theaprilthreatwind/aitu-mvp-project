@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
@@ -36,9 +36,9 @@ export function NewProductCard(categoryId) {
         <img src="/food.jpg" alt="dish" className="h-40 w-full object-cover" />
         <Popover
           isOpen={isModalOpen}
-          positions={["right"]}
+          positions={["bottom"]}
           padding={10}
-          reposition={false}
+          reposition={true}
           onClickOutside={() => setIsModalopen(false)}
           content={
             <div>
