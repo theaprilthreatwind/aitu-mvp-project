@@ -10,7 +10,7 @@ export function Navbar() {
   return (
     <>
       <nav>
-        <div className="logo">Danya</div>
+        <div className="logo">MDEat OS</div>
         <div className={show ? "navLinks showmenu" : "navLinks"}>
           <div className="links">
             {data[0].navbarLinks.map((element) => (
@@ -25,7 +25,9 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <button className="menuBtn">OUR MENU</button>
+          <Link to="/register" className="menuBtn">
+            Login
+          </Link>
         </div>
         <div className="hamburger" onClick={() => setShow(!show)}>
           <GiHamburgerMenu />

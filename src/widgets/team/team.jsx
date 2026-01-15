@@ -27,4 +27,4 @@ export function Team() {
       </div>
     </section>
   );
-};
+}

@@ -9,7 +9,6 @@ import { clsx } from "clsx";
  */
 
 export function UXInput({
-  type = "text",
   placeHolder = "Write something",
   size = "medium",
   ...props
@@ -18,5 +17,5 @@ export function UXInput({
     "rounded-2xl px-4 py-2 text-xl": size === "medium",
     "rounded-xl px-2 py1 text-lg": size === "small",
   });
-  return <input type={type} placeholder={placeHolder} className={className} ref={ref} {...props}/>;
+  return <input placeholder={placeHolder} className={className} ref={ref} {...props}/>;
 }

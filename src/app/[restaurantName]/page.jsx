@@ -1,22 +1,32 @@
+import { UXButton } from "@/shared";
+import { Menu } from "@/widgets";
+
 export default async function Restaraunt({ params }) {
   const { restaurantName } = await params;
-  console.log(restaurantName);
 
   return (
     <>
-      <header className="flex items-center justify-between bg-white mx-auto mt-6.25 my-10 h-12 w-375 text-3xl">
+      <header className="flex items-center justify-between bg-white mx-auto mt-6.25 my-10 h-12 max-w-375 text-3xl">
         <div className="font-semibold">{restaurantName}</div>
         <nav className="grid grid-cols-2 gap-2 font-extralight">
-          <button>ABOUT</button>
-          <button>MENU</button>
+          <UXButton variant="secondary" color="sky" size="medium">
+            ABOUT
+          </UXButton>
+          <UXButton variant="secondary" color="sky" size="medium">
+            MENU
+          </UXButton>
         </nav>
-        <div className="grid grid-cols-2 gap-2">
-          <button>singIn</button>
-          <button>logIn</button>
-        </div>
+        {/* <div className="grid grid-cols-2 gap-2">
+          <UXButton size="medium" variant="secondary">
+            singIn
+          </UXButton>
+          <UXButton size="medium" variant="secondary">
+            logIn
+          </UXButton>
+        </div> */}
       </header>
       <main className="">
-        <section className="bg-red-500 w-375 max-h-100 mx-auto my-10">
+        <section className="max-w-375 max-h-100 mx-auto my-10">
           <div className="flex flex-col items-center">
             <div className="text-6xl">
               <span className="font-extralight">About</span>
@@ -25,7 +35,7 @@ export default async function Restaraunt({ params }) {
             <div className="text-2xl font-light">Restaurant description</div>
           </div>
         </section>
-        <section className="bg-green-500 w-375 mx-auto h-200"></section>
+        <Menu />
       </main>
     </>
   );

@@ -13,8 +13,10 @@ export function ProductCard({ name, description, price, photo }) {
           <div className="flex justify-end">
             <div className="flex items-center text-xl gap-2">
               <div>{price}</div>
-              <UXButton size="small" color="red">Изменить</UXButton>
-            </div>  
+              <UXButton size="small" color="red">
+                Заказать
+              </UXButton>
+            </div>
           </div>
         </div>
       </div>

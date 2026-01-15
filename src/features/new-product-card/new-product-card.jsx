@@ -1,3 +1,5 @@
+"use client"
+
 import { useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import { Popover } from "react-tiny-popover";

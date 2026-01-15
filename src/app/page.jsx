@@ -1,4 +1,4 @@
-import { About, HeroSection, Reservation, Team, WhoWeAre, Qualities, Menu, Footer} from "@/widgets";
+import { About, HeroSection, Reservation, Team, WhoWeAre, Qualities, MenuHelloPage, Footer} from "@/widgets";
 import "./page.css"
 export default function HomePage() {
   return (
@@ -6,7 +6,7 @@ export default function HomePage() {
       <HeroSection />
       <About />
       <Qualities />
-      <Menu />
+      <MenuHelloPage />
       <WhoWeAre />
       <Team />
       <Reservation />
