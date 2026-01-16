@@ -1,4 +1,7 @@
-export function RestaurantHeader() {
+import { UXButton } from "@/shared";
+
+
+export function RestaurantHeader({restaurantName}) {
   return (
     <header className="flex items-center justify-between bg-white mx-auto mt-6.25 my-10 h-12 max-w-375 text-3xl">
       <div className="font-semibold">{restaurantName}</div>
@@ -10,8 +13,8 @@ export function RestaurantHeader() {
           MENU
         </UXButton>
       </nav>
-      <div className="grid grid-cols-2 gap-2">
-        {/* {innerWidth > 768? (
+      {/* <div className="grid grid-cols-2 gap-2">
+        {innerWidth > 768? (
                   <>
               <UXButton size="medium" variant="secondary">
                 singIn
@@ -22,8 +25,8 @@ export function RestaurantHeader() {
                   </> 
               )
               : null
-              } */}
-      </div>
+              }
+      </div> */}
     </header>
   );
 }
