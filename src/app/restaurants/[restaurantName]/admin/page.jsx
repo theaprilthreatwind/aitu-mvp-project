@@ -1,16 +1,23 @@
-"use client";
-
+import { fetchGetMenu } from "@/shared";
 import { AdminMenu, SideBar } from "@/widgets";
-import { useState } from "react";
 
-export default function AdminPanel() {
-  const [currentTab, setCurrentTab] = useState("menu");
+async function getMenu(restaurantName) {
+  try {
+    const menu = await fetchGetMenu(restaurantName);
+    return menu;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
+export default async function AdminPanel(params) {
+  const { restaurantName } = await params;
+  const menu = await getMenu(restaurantName);
+  console.log(menu)
   return (
     <div className="flex max-w-screen">
-      <SideBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
-      {currentTab === "menu" && <AdminMenu />}
-      {currentTab === "stats" && <div>ligma balls</div>}
+      <SideBar />
+      <AdminMenu />
     </div>
   );
 }

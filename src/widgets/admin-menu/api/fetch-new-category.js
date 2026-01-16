@@ -1,13 +1,17 @@
-export async function fetchNewCategory(title, description) {
+export async function fetchNewCategory(categoryId, title, description, dishes, token) {
   {
-    const response = await fetch(process.env.API_URL + "/api/admin/category", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "69420",
-      },
-      body: JSON.stringify({ title, description }),
-    });
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_API_URL + "/api/admin/category",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Token: token,
+          "ngrok-skip-browser-warning": "69420",
+        },
+        body: JSON.stringify({ categoryId, title, description, dishes }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Ошибка при создания нового блюда");

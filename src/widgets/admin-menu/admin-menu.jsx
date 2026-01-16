@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { ProductCard } from "@/entities";
 import { Popover } from "react-tiny-popover";
-import { UXButton, UXInput } from "@/shared";
+import { GenerateId, UXButton, UXInput } from "@/shared";
 import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
+import { RxCross1 } from "react-icons/rx";
 
 const menuData = [
   {
@@ -94,13 +95,24 @@ export function AdminMenu() {
       setIsAddCategoryOpen(false);
       const title = formData.get("title");
       const description = formData.get("description");
-      console.log({ title, description });
-      const response = await fetchNewCategory(title, description);
+      const token = sessionStorage.getItem("authToken");
+      const categoryId = GenerateId(10000000, 99999999);
+      const dishes = [];
+      console.log({ categoryId, title, description, dishes, token });
+      const response = await fetchNewCategory(
+        categoryId,
+        title,
+        description,
+        dishes,
+        token
+      );
       console.log(response);
     } catch (error) {
       console.error(error.message);
     }
   }
+
+  async function handleDeleteDish(dishId) {}
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
@@ -113,7 +125,7 @@ export function AdminMenu() {
           content={() => (
             <div className="shadow-xl px-6 py-4 rounded-2xl -z-100">
               <div className="flex flex-col">
-                <form action="submitCategory">
+                <form action={submitNewCategory}>
                   <div className="flex flex-col">
                     <label className="text-2xl font-bold mb-2 ">
                       Name of Category
@@ -171,10 +183,23 @@ export function AdminMenu() {
                       description={dish.description}
                       price={dish.price}
                       key={productIndex}
+                      className={"relative mr-5"}
                     >
-                      <UXButton variant="primary" size="small" color="red">
-                        Изменить
-                      </UXButton>
+                      <div>
+                        <div className="flex justify-between">
+                          <UXButton variant="primary" size="small" color="sky">
+                            Изменить
+                          </UXButton>
+                          <UXButton
+                            variant="primary"
+                            size="small"
+                            color="red"
+                            onClick={() => handleDeleteDish(dish.id)}
+                          >
+                            Удалить
+                          </UXButton>
+                        </div>
+                      </div>
                     </ProductCard>
                   );
                 })}

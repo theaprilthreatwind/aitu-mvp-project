@@ -10,3 +10,5 @@ export { AdminMenu } from "./admin-menu/admin-menu.jsx";
 export { SideBar } from "./side-bar/side-bar.jsx";
 export { Menu } from "./menu/menu.jsx";
 export { RegistrationMenu } from "./registration-menu/registration-menu.jsx";
+export { RestaurantHeader } from "./restaurant-header/restaurant-header.jsx";
+export { RestaurantInfo } from "./restaurant-info/restaurant-info.jsx";

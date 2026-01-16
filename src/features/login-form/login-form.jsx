@@ -2,7 +2,7 @@
 
 import { UXButton, UXInput } from "@/shared";
 import { useState } from "react";
-import { fetchLoginUser } from "./api/fetch-login-user.jsx";
+import { fetchLoginUser } from "./api/fetch-login-user.js";
 export function LoginForm() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -22,6 +22,10 @@ export function LoginForm() {
       const name = formData.get("name");
       const password = formData.get("password");
       const response = await fetchLoginUser(name, password);
+      const { role, token } = response;
+      console.log(response);
+      console.log(token)
+      sessionStorage.setItem("authToken", token);
     } catch (error) {
       console.error(error.message);
     }

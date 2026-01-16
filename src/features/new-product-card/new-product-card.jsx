@@ -6,8 +6,14 @@ import { Popover } from "react-tiny-popover";
 import { UXButton, UXInput } from "@/shared";
 import { fetchNewProduct } from "./api/fetch-new-product.js";
 
-export function NewProductCard(categoryId) {
+export function NewProductCard({ categoryId }) {
   const [isModalOpen, setIsModalopen] = useState(false);
+  const [price, setPrice] = useState(1);
+
+  const handlePrice = (value) => {
+    if (value > 100000) return;
+    setPrice(value);
+  };
 
   async function submitNewDish(formData) {
     try {
@@ -15,7 +21,8 @@ export function NewProductCard(categoryId) {
       setIsModalopen(false);
       const dishName = formData.get("dishName");
       const description = formData.get("description");
-      const price = formData.get("price");
+      const price = Number(formData.get("price"));
+
       const photo = formData.get("photo");
       console.log({ categoryId, dishName, description, price, photo });
       const response = await fetchNewProduct(
@@ -49,7 +56,7 @@ export function NewProductCard(categoryId) {
                       <label className="text-2xl font-bold mb-2 ">
                         Name of dish
                       </label>
-                      <UXInput type="text" name="dishName" />
+                      <UXInput type="text" name="dishName" step="0.01" />
                     </div>
                     <div className="flex flex-col">
                       <label className="text-2xl font-bold mb-2 ">
@@ -58,8 +65,13 @@ export function NewProductCard(categoryId) {
                       <UXInput type="text" name="description" />
                     </div>
                     <div className="flex flex-col">
-                      <label className="text-2xl font-bold mb-2 ">Price</label>
-                      <UXInput type="number" name="price" />
+                      <label className="text-2xl font-bold mb-2">Price</label>
+                      <UXInput
+                        type="number"
+                        name="price"
+                        value={price}
+                        onChange={(e) => handlePrice(e.target.value)}
+                      />
                       <div className="flex flex-col">
                         <label className="text-2xl font-bold mb-2 ">
                           Photo

@@ -1,6 +1,6 @@
 import { GrFormNext, GrMenu, GrRestaurant } from "react-icons/gr";
 
-export function SideBar({currentTab, setCurrentTab}) {
+export function SideBar() {
   return (
     <aside className="bg-white shadow-md w-1/9 flex flex-col rounded-r-lg h-screen">
       <div className="p-4 border-b border-neutral-200">
@@ -12,7 +12,7 @@ export function SideBar({currentTab, setCurrentTab}) {
         <ul className="space-y-2">
           <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
             <button 
-            onClick={() => setCurrentTab("stats")}
+            onClick={null}
             className="w-full flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <GrRestaurant />
@@ -24,7 +24,7 @@ export function SideBar({currentTab, setCurrentTab}) {
 
           <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
             <button
-              onClick={() => setCurrentTab("menu")}
+              onClick={null}
               className="w-full flex items-center justify-between gap-2"
             >
               <div className="flex items-center gap-2">
