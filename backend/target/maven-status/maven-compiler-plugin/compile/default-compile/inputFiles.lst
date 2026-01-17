@@ -1,0 +1,17 @@
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\AppController.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\entities\Role.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\entities\Stats.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\entities\Status.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\entities\User.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\food\Category.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\food\Dish.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\food\Order.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\MdEatOsApplication.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\requests\CategoryRequest.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\requests\CreateDishRequest.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\requests\OrderRequest.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\requests\UpdateDishRequest.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\service\FoodService.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\service\RestaurantInfo.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\service\RestaurantStats.java
+C:\Users\Miron\IdeaProjects\MDEat OS\src\main\java\com\example\demo\WebConfig.java
