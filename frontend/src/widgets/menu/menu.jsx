@@ -1,29 +1,41 @@
 "use client";
 import { ProductCard } from "@/entities";
 import { LoginForm, RegistrationForm } from "@/features";
-import { Modal, UXButton } from "@/shared";
+import { Modal, UXButton, UXInput } from "@/shared";
 import { useState } from "react";
 import { RegistrationMenu } from "..";
+import { fetchOrder } from "./api/fetch-order";
+import { Popover } from "react-tiny-popover";
+import { Toaster, toast } from "react-hot-toast";
 
 export function Menu({ menu }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
   const [authType, setAuthType] = useState(null);
 
-  async function submitOrder(id) {
+  async function submitOrder(formData, id) {
     try {
+      formData.preventDefault;
+      const tableName = formData.get("table");
       const token = sessionStorage.getItem("clientAuthToken");
-      if (!token) {
+      console.log(tableName, id, token);
+      if (!token || token === "undefined") {
         setIsAuthModalOpen(true);
         return;
       }
-      const response = await fetchMakeOrder(token, id);
+      const response = await fetchOrder(id, tableName, token);
+      console.log(response);
+      toast.success("Successfully ordered");
+      setIsOrderFormOpen(false);
     } catch (error) {
-      console.error(error.message);
+      toast.error("This didn't work, try later");
+      console.error(error.message, error.cause);
     }
   }
 
   return (
     <section className="max-w-383 mx-auto p-4 shadow-2xl rounded-2xl">
+      <Toaster />
       {isAuthModalOpen && (
         <Modal onClose={() => setIsAuthModalOpen(false)}>
           <div className="flex justify-center gap-4 flex-col items-center">
@@ -86,13 +98,39 @@ export function Menu({ menu }) {
                   photoUrl={dish.photoUrl}
                   key={index}
                 >
-                  <UXButton
-                    size="small"
-                    color="red"
-                    onClick={() => submitOrder(dish.id)}
+                  <Popover
+                    positions={["bottom"]}
+                    isOpen={isOrderFormOpen}
+                    reposition={true}
+                    onClickOutside={() => setIsOrderFormOpen(false)}
+                    content={
+                      <div className="bg-white p-4 shadow-2xl border border-gray-200 rounded-2xl">
+                        <form
+                          action={(formData) => submitOrder(formData, dish.id)}
+                          className="flex flex-col gap-2"
+                        >
+                          <label className="text-2xl">Write table's num</label>
+                          <UXInput name="table" />
+                          <UXButton
+                            size="small"
+                            type="number"
+                            color="red"
+                            variant="primary"
+                          >
+                            Order
+                          </UXButton>
+                        </form>
+                      </div>
+                    }
                   >
-                    Заказать
-                  </UXButton>
+                    <UXButton
+                      size="small"
+                      color="red"
+                      onClick={() => setIsOrderFormOpen(true)}
+                    >
+                      Заказать
+                    </UXButton>
+                  </Popover>
                 </ProductCard>
               ))}
             </div>

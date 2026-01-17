@@ -6,3 +6,4 @@ export { GenerateId } from "./generate-id/generate-id.js";
 export { fetchGetMenu } from "./api/fetch-get-menu.js";
 export { useUploadThing } from "./api/uploadthing.js";
 export { ourFileRouter } from "./upload/upload-core.js";
+export {fetchRestaurantList} from './api/fetch-restaurant-list.js'

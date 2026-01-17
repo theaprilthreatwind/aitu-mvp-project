@@ -33,9 +33,10 @@ export function LoginForm({ role }) {
         sessionStorage.clear();
       }
       if (role === "MANAGER") sessionStorage.setItem("mangerAuthToken", token);
-      else if (role === "CLIENT")
+      else if (role === "CLIENT") {
         sessionStorage.setItem("clientAuthToken", token);
-      router.refresh();
+        window.location.reload();
+      }
     } catch (error) {
       console.error(error.message);
     }

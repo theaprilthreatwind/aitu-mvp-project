@@ -1,20 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchOrders } from "./api/fetch-orders";
+import { fetchStats } from "./api/fetch-stats";
 
 export function StatsMenu() {
-  const [orders, setOrders] = useState(null);
+  const [stats, setStats] = useState(null);
   const [shouldFetchOrders, setShouldFetchOrders] = useState(true);
-
+  console.log(stats);
   useEffect(() => {
     if (shouldFetchOrders)
       (async () => {
         try {
           const token = sessionStorage.getItem("mangerAuthToken");
-          const orders = await fetchOrders(token);
-          setOrders(orders);
+          const stats1 = await fetchStats(token);
           setShouldFetchOrders(false);
+          setStats(stats1);
         } catch (error) {
           console.log(error.message);
         }
@@ -23,22 +23,22 @@ export function StatsMenu() {
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
-        <div className="">Restaurant's statistic</div>
+        <div className="text-2xl">Restaurant's statistic</div>
       </header>
       <section className="pl-4 mt-4 overflow-hidden box-border">
-        <div className="overflow-x-scroll flex gap-2 py-4">
-          {orders? orders.map((dish, productIndex) => {
-            return (
-              <ProductCard
-                key={productIndex}
-                name={dish.title}
-                description={dish.description}
-                price={dish.price}
-                photoUrl={dish.photoUrl}
-                className={"relative mr-5"}
-              />
-            );
-          }) : <div className="text-6xl text-gray-400"> No orders yet</div>}
+        <div>
+          <div>
+            Total income:{" "}
+            <span>{stats === null ? "Wait..." : stats.totalIncome}</span>
+          </div>
+          <div>
+            Total income:{" "}
+            <span>{stats === null ? "Wait..." : stats.dailyIncome}</span>
+          </div>
+          <div>
+            Total income:{" "}
+            <span>{stats === null ? "Wait..." : stats.totalVisitors}</span>
+          </div>
         </div>
       </section>
     </main>

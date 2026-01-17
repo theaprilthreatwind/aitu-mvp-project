@@ -38,7 +38,6 @@ async function fetchCategories(restaurantName) {
       },
     }
   );
-  console.log(response);
   if (response.headers.get("content-type") == "text/html") {
     const data = await response.text();
     console.log(data);

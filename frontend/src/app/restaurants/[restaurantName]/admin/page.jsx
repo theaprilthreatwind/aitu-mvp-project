@@ -1,8 +1,6 @@
 "use client";
-
 import { LoginForm } from "@/features";
-import { fetchGetMenu } from "@/shared";
-import { AdminMenu, SideBar, StatsMenu } from "@/widgets";
+import { AdminMenu, OrdersMenu, SideBar, StatsMenu } from "@/widgets";
 import { use, useEffect, useState } from "react";
 
 export default function AdminPanel({ params }) {
@@ -13,12 +11,12 @@ export default function AdminPanel({ params }) {
   const tabs = {
     menu: <AdminMenu restaurantName={restaurantName} />,
     stats: <StatsMenu restaurantName={restaurantName} />,
-    orders: <div>orders</div>,
+    orders: <OrdersMenu restaurantName={restaurantName}/>
   };
 
   useEffect(() => {
     const isManagerAuth = sessionStorage.getItem("mangerAuthToken");
-    setIsLogined(true);
+    setIsLogined(isManagerAuth);
   });
 
   const render = isLogined ? (

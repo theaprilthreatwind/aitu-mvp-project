@@ -7,6 +7,7 @@ import { fetchGetMenu, GenerateId, UXButton, UXInput } from "@/shared";
 import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 import { RxCross1 } from "react-icons/rx";
+import { fetchDeleteDish } from "./api/fetch-delete-dish";
 
 export function AdminMenu({ restaurantName }) {
   const [menu, setMenu] = useState(null);
@@ -46,13 +47,16 @@ export function AdminMenu({ restaurantName }) {
         token,
       );
       setShouldFetchMenu(true);
-      console.log(response);
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  async function handleDeleteDish(id) {}
+  async function handleDeleteDish(id) {
+    const token = sessionStorage.getItem("mangerAuthToken");
+    const response = await fetchDeleteDish(id, token);
+    setShouldFetchMenu(true);
+  }
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">

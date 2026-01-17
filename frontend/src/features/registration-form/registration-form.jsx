@@ -32,24 +32,25 @@ export function RegistrationForm({ role }) {
       const password = formData.get("password");
       const email = formData.get("email");
       const response = await fetchCreateNewUser(name, email, password, role);
-      console.log(response)
       if (role === "MANAGER") {
         router.push(`/restaurants/${name}/admin`);
       } else if (role === "CLIENT") {
         const token = response.token;
         sessionStorage.setItem("clientAuthToken", token);
-        router.refresh()
+        window.location.reload();
       }
       console.log(response);
     } catch (error) {
       console.error(error.message);
     }
   }
-  console.log(role)
+  console.log(role);
   return (
     <form action={createNewUser}>
       <div className="flex flex-col gap-2 mb-4">
-        <label className="text-2xl">{role === "MANAGER"? "Restaurant's name" : "login"}</label>
+        <label className="text-2xl">
+          {role === "MANAGER" ? "Restaurant's name" : "login"}
+        </label>
         <UXInput
           value={name}
           onChange={(e) => handleName(e.target.value)}

@@ -1,9 +1,10 @@
-import { fetchGetMenu, UXButton } from "@/shared";
+import { fetchGetMenu, fetchRestaurantList } from "@/shared";
 import { Menu, RestaurantHeader, RestaurantInfo } from "@/widgets";
 
 async function getMenu(restaurantName) {
   try {
     const restaurantList = await fetchRestaurantList();
+    console.log(restaurantList);
     if (!restaurantList.includes(restaurantName)) return "does not exsist";
     const menu = await fetchGetMenu(restaurantName);
     return menu;
@@ -14,17 +15,23 @@ async function getMenu(restaurantName) {
 
 export default async function Restaraunt({ params }) {
   const { restaurantName } = await params;
-  console.log(restaurantName);
   const menu = await getMenu(restaurantName);
 
   return (
     <>
-      {menu === "does not exsist"}
-      <RestaurantHeader restaurantName={restaurantName} />
-      <main className="">
-        <RestaurantInfo restaurantName={restaurantName} />
-        <Menu menu={menu} />
-      </main>
+      {menu === "does not exsist" ? (
+        <div className="w-full flex justify-center text-6xl mt-20">
+          <div>Restaurant does not exsist</div>
+        </div>
+      ) : (
+        <>
+          <RestaurantHeader restaurantName={restaurantName} />
+          <main className="">
+            <RestaurantInfo restaurantName={restaurantName} />
+            <Menu menu={menu} />
+          </main>
+        </>
+      )}
     </>
   );
 }
