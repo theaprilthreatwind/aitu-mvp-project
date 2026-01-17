@@ -38,7 +38,8 @@ MDEatOS — это не просто сайт, а экосистема, связ
    ```
 
 2. **Настройте .env.local: Создайте файл .env.local и укажите адрес вашего API:**
-   Code snippet
+
+Откройте папку backend и прочитайте README.md
 
 NEXT_PUBLIC_API_URL=[https://your-api-server-url.com](https://your-api-server-url.com)
 
