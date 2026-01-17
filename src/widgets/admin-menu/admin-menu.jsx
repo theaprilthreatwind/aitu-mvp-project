@@ -1,93 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductCard } from "@/entities";
 import { Popover } from "react-tiny-popover";
-import { GenerateId, UXButton, UXInput } from "@/shared";
+import { fetchGetMenu, GenerateId, UXButton, UXInput } from "@/shared";
 import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 import { RxCross1 } from "react-icons/rx";
 
-const menuData = [
-  {
-    categoryId: 123,
-    title: "Супы",
-    description: "Номад Супы вкусные",
-    dishes: [
-      {
-        id: 1124,
-        title: "Блюдо Суп с Котом",
-        description: "Освежающий супчик",
-        price: 199.9,
-      },
-      {
-        id: 12412,
-        title: "Блюдо Суп с водой",
-        description: "Освежающий супчик",
-        price: 23.9,
-      },
-    ],
-  },
-  {
-    categoryId: 124154,
-    title: "чаи",
-    description: "Номад чаи вкусные",
-    dishes: [
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 113151,
-        title: "чай с броколями",
-        description: "Освежающий чай",
-        price: 13.0,
-      },
-      {
-        id: 958328,
-        title: "чай с бубенами",
-        description: "Освежающий чай",
-        price: 12.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 113151,
-        title: "чай с броколями",
-        description: "Освежающий чай",
-        price: 13.0,
-      },
-      {
-        id: 958328,
-        title: "чай с бубенами",
-        description: "Освежающий чай",
-        price: 12.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-    ],
-  },
-];
-
-export function AdminMenu() {
-  const [menu, setMenu] = useState(menuData);
+export function AdminMenu({ restaurantName }) {
+  const [menu, setMenu] = useState(null);
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
+  const [shouldFetchMenu, setShouldFetchMenu] = useState(true);
+
+  useEffect(() => {
+    try {
+      if (shouldFetchMenu) {
+        (async () => {
+          const response = await fetchGetMenu(restaurantName);
+          console.log(response);
+          setMenu(response);
+          setShouldFetchMenu(false);
+        })();
+        setShouldFetchMenu(false); // Reset after fetch
+      }
+    } catch (error) {
+      console.error(error.message);
+      setMenu(null);
+    }
+  }, [shouldFetchMenu]);
 
   async function submitNewCategory(formData) {
     try {
@@ -106,13 +47,16 @@ export function AdminMenu() {
         dishes,
         token
       );
+      setShouldFetchMenu(true);
       console.log(response);
     } catch (error) {
       console.error(error.message);
     }
   }
 
-  async function handleDeleteDish(dishId) {}
+  async function handleDeleteDish(id) {
+
+  }
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
@@ -171,43 +115,49 @@ export function AdminMenu() {
         </Popover>
       </section>
       <section className="pl-4 mt-4 overflow-hidden box-border">
-        {menu.map((value) => {
-          return (
-            <div className="mt-4" key={value.categoryId}>
-              <div className="text-4xl font-bold">{value.title}</div>
-              <div className="overflow-x-scroll flex gap-2 py-4">
-                {value.dishes.map((dish, productIndex) => {
-                  return (
-                    <ProductCard
-                      name={dish.title}
-                      description={dish.description}
-                      price={dish.price}
-                      key={productIndex}
-                      className={"relative mr-5"}
-                    >
-                      <div>
-                        <div className="flex justify-between">
-                          <UXButton variant="primary" size="small" color="sky">
-                            Изменить
-                          </UXButton>
-                          <UXButton
-                            variant="primary"
-                            size="small"
-                            color="red"
-                            onClick={() => handleDeleteDish(dish.id)}
-                          >
-                            Удалить
-                          </UXButton>
+        {menu &&
+          menu.map((category) => {
+            return (
+              <div className="mt-4" key={category.id}>
+                <div className="text-4xl font-bold">{category.title}</div>
+                <div className="overflow-x-scroll flex gap-2 py-4">
+                  {category.dishes.map((dish, productIndex) => {
+                    return (
+                      <ProductCard
+                        name={dish.title}
+                        description={dish.description}
+                        price={dish.price}
+                        key={productIndex}
+                        photoUrl={dish.photoUrl}
+                        className={"relative mr-5"}
+                      >
+                        <div>
+                          <div className="flex justify-between">
+                            <UXButton
+                              variant="primary"
+                              size="small"
+                              color="sky"
+                            >
+                              Изменить
+                            </UXButton>
+                            <UXButton
+                              variant="primary"
+                              size="small"
+                              color="red"
+                              onClick={() => handleDeleteDish(dish.id)}
+                            >
+                              Удалить
+                            </UXButton>
+                          </div>
                         </div>
-                      </div>
-                    </ProductCard>
-                  );
-                })}
-                <NewProductCard categoryId={value.categoryId} />
+                      </ProductCard>
+                    );
+                  })}
+                  <NewProductCard categoryId={category.id} setShouldFetchMenu={setShouldFetchMenu}/>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </section>
     </main>
   );

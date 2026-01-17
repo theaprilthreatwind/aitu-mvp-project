@@ -13,7 +13,6 @@ async function getMenu(restaurantName) {
 export default async function Restaraunt({ params }) {
   const { restaurantName } = await params;
   const menu = await getMenu(restaurantName);
-  console.log(menu);
 
   return (
     <>

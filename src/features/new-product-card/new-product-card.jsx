@@ -5,8 +5,8 @@ import { BsPlusCircle } from "react-icons/bs";
 import { Popover } from "react-tiny-popover";
 import { UXButton, UXInput } from "@/shared";
 import { fetchNewProduct } from "./api/fetch-new-product.js";
-
-export function NewProductCard({ categoryId }) {
+import { useUploadThing } from "@/shared";
+export function NewProductCard({ categoryId, setShouldFetchMenu }) {
   const [isModalOpen, setIsModalopen] = useState(false);
   const [price, setPrice] = useState(1);
 
@@ -15,6 +15,8 @@ export function NewProductCard({ categoryId }) {
     setPrice(value);
   };
 
+  const { startUpload, isUploading } = useUploadThing("imageUploader");
+
   async function submitNewDish(formData) {
     try {
       formData.preventDefault;
@@ -22,17 +24,20 @@ export function NewProductCard({ categoryId }) {
       const dishName = formData.get("dishName");
       const description = formData.get("description");
       const price = Number(formData.get("price"));
-
       const photo = formData.get("photo");
-      console.log({ categoryId, dishName, description, price, photo });
+      const token = sessionStorage.getItem("authToken")
+      const uploadRes = await startUpload([photo]);
+      const photoUrl = uploadRes[0].ufsUrl;
       const response = await fetchNewProduct(
         categoryId,
         dishName,
         description,
         price,
-        photo
+        photoUrl,
+        token
       );
       console.log(response);
+      setShouldFetchMenu(true)
     } catch (error) {
       console.log(error.message);
     }
@@ -76,7 +81,7 @@ export function NewProductCard({ categoryId }) {
                         <label className="text-2xl font-bold mb-2 ">
                           Photo
                         </label>
-                        <UXInput type="file" name="photo" />
+                        <UXInput type="file" name="photo" accept="image/*" />
                       </div>
                     </div>
                   </div>

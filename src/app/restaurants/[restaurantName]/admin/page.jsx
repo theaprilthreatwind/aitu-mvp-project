@@ -1,23 +1,29 @@
+"use client";
+
+import { LoginForm } from "@/features";
 import { fetchGetMenu } from "@/shared";
 import { AdminMenu, SideBar } from "@/widgets";
+import { use, useEffect, useState } from "react";
 
-async function getMenu(restaurantName) {
-  try {
-    const menu = await fetchGetMenu(restaurantName);
-    return menu;
-  } catch (error) {
-    console.error(error.message);
-  }
-}
+export default function AdminPanel({ params }) {
+  const [isLogined, setIsLogined] = useState(false);
+  const { restaurantName } = use(params);
+  console.log(isLogined);
 
-export default async function AdminPanel(params) {
-  const { restaurantName } = await params;
-  const menu = await getMenu(restaurantName);
-  console.log(menu)
-  return (
+  useEffect(() => {
+    const isAuth = sessionStorage?.getItem("authToken");
+    setIsLogined(isAuth);
+  });
+
+  const render = isLogined ? (
     <div className="flex max-w-screen">
       <SideBar />
-      <AdminMenu />
+      <AdminMenu restaurantName={restaurantName} />
+    </div>
+  ) : (
+    <div className="max-w-300 p-4 mx-auto mt-20 shadow-2xl rounded-2xl border border-gray-200">
+      <LoginForm />
     </div>
   );
+  return render;
 }

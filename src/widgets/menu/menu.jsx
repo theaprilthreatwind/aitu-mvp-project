@@ -102,20 +102,21 @@ export function Menu({ menu }) {
     // </div>
     <section className="max-w-383 mx-auto p-4 shadow-2xl rounded-2xl">
       {menu &&
-        menu.map((category) => (
-          <div key={category.categoryId}>
+        menu.map((category, index) => (
+          <div key={category.id}>
             <div>
               <div className="text-6xl">{category.title}</div>
               <div className="text-2xl font-extralight">
                 {category.description}
               </div>
             </div>
-            <div className="flex overflow-x-scroll p-5 gap-4 h-80 border border-gray-200 rounded-2xl">
+            <div className="flex overflow-x-scroll p-5 gap-4 min-h-80 border border-gray-200 rounded-2xl">
               {category.dishes.map((dish, index) => (
                 <ProductCard
                   name={dish.title}
                   description={dish.description}
                   price={dish.price}
+                  photoUrl={dish.photoUrl}
                   key={index}
                 >
                   <UXButton size="small" color="red">

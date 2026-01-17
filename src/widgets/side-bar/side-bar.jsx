@@ -1,19 +1,33 @@
-import { GrFormNext, GrMenu, GrRestaurant } from "react-icons/gr";
+"use client"
 
+import { UXButton } from "@/shared";
+import { GrFormNext, GrMenu, GrRestaurant } from "react-icons/gr";
+import { useRouter } from "next/navigation";
 export function SideBar() {
+  const router = useRouter();
   return (
     <aside className="bg-white shadow-md w-1/9 flex flex-col rounded-r-lg h-screen">
       <div className="p-4 border-b border-neutral-200">
         <div className="text-xl font-bold text-neutral-800 flex items-center">
-          TheApril
+          <UXButton
+            size="small"
+            variant="secondary"
+            onClick={() => {
+              sessionStorage.clear();
+              router.refresh()
+            }}
+          >
+            LogOut
+          </UXButton>
         </div>
       </div>
       <nav className="p-4">
         <ul className="space-y-2">
           <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
-            <button 
-            onClick={null}
-            className="w-full flex items-center justify-between gap-2">
+            <button
+              onClick={null}
+              className="w-full flex items-center justify-between gap-2"
+            >
               <div className="flex items-center gap-2">
                 <GrRestaurant />
                 Dashboard

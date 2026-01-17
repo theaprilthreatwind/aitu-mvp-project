@@ -3,9 +3,12 @@
 import { UXButton, UXInput } from "@/shared";
 import { useState } from "react";
 import { fetchLoginUser } from "./api/fetch-login-user.js";
+import { useRouter } from "next/navigation";
+
 export function LoginForm() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handlePassword = (value) => {
     if (value.length > 20) return;
@@ -24,8 +27,14 @@ export function LoginForm() {
       const response = await fetchLoginUser(name, password);
       const { role, token } = response;
       console.log(response);
-      console.log(token)
+      console.log(token);
+      console.log({ oldAuthToken: sessionStorage.getItem(token) });
+      if (sessionStorage.getItem(token)) {
+        console.log("asdlfkaf;");
+        sessionStorage.clear();
+      }
       sessionStorage.setItem("authToken", token);
+      router.refresh();
     } catch (error) {
       console.error(error.message);
     }
@@ -39,6 +48,7 @@ export function LoginForm() {
           value={name}
           onChange={(e) => handleName(e.target.value)}
           name="name"
+          required
         />
       </div>
       <div className="flex flex-col gap-2 mb-4">
@@ -48,6 +58,7 @@ export function LoginForm() {
           value={password}
           onChange={(e) => handlePassword(e.target.value)}
           name="password"
+          required
         />
       </div>
       <UXButton color="sky" variant="primary" size="medium" type="submit">
