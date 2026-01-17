@@ -25,7 +25,7 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
       const description = formData.get("description");
       const price = Number(formData.get("price"));
       const photo = formData.get("photo");
-      const token = sessionStorage.getItem("authToken")
+      const token = sessionStorage.getItem("MangerauthToken")
       const uploadRes = await startUpload([photo]);
       const photoUrl = uploadRes[0].ufsUrl;
       const response = await fetchNewProduct(

@@ -33,7 +33,7 @@ export function LoginForm() {
         console.log("asdlfkaf;");
         sessionStorage.clear();
       }
-      sessionStorage.setItem("authToken", token);
+      sessionStorage.setItem("MangerauthToken", token);
       router.refresh();
     } catch (error) {
       console.error(error.message);

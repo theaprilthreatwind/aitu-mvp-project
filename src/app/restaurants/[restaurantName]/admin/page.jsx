@@ -11,7 +11,7 @@ export default function AdminPanel({ params }) {
   console.log(isLogined);
 
   useEffect(() => {
-    const isAuth = sessionStorage?.getItem("authToken");
+    const isManagerAuth = sessionStorage?.getItem("MangerauthToken");
     setIsLogined(isAuth);
   });
 
