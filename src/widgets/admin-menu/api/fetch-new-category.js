@@ -14,7 +14,7 @@ export async function fetchNewCategory(categoryId, title, description, dishes, t
     );
 
     if (!response.ok) {
-      throw new Error("Ошибка при создания нового блюда");
+      throw new Error("Ошибка при создания нового блюда " + response.status);
     }
 
     const data = await response.json();

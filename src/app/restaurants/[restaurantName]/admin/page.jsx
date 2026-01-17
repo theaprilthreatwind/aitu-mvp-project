@@ -23,7 +23,7 @@ export default function AdminPanel({ params }) {
     </div>
   ) : (
     <div className="max-w-300 p-4 mx-auto mt-20 shadow-2xl rounded-2xl border border-gray-200">
-      <LoginForm />
+      <LoginForm role="MANAGER"/>
     </div>
   );
   return render;

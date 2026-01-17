@@ -1,106 +1,73 @@
 "use client";
 import { ProductCard } from "@/entities";
+import { LoginForm, RegistrationForm } from "@/features";
 import { Modal, UXButton } from "@/shared";
 import { useState } from "react";
-const menuData = [
-  {
-    categoryId: 123,
-    title: "Супы",
-    description: "Номад Супы вкусные",
-    dishes: [
-      {
-        id: 1124,
-        title: "Блюдо Суп с Котом",
-        description: "Освежающий супчик",
-        price: 199.9,
-      },
-      {
-        id: 12412,
-        title: "Блюдо Суп с водой",
-        description: "Освежающий супчик",
-        price: 23.9,
-      },
-    ],
-  },
-  {
-    categoryId: 124154,
-    title: "чаи",
-    description: "Номад чаи вкусные",
-    dishes: [
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 113151,
-        title: "чай с броколями",
-        description: "Освежающий чай",
-        price: 13.0,
-      },
-      {
-        id: 958328,
-        title: "чай с бубенами",
-        description: "Освежающий чай",
-        price: 12.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 113151,
-        title: "чай с броколями",
-        description: "Освежающий чай",
-        price: 13.0,
-      },
-      {
-        id: 958328,
-        title: "чай с бубенами",
-        description: "Освежающий чай",
-        price: 12.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-      {
-        id: 112134,
-        title: "чай с Котом",
-        description: "Освежающий чай",
-        price: 10.0,
-      },
-    ],
-  },
-];
+import { RegistrationMenu } from "..";
 
 export function Menu({ menu }) {
-  const [isModalOpen, setIsModalOpen] = useState(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authType, setAuthType] = useState(null);
+  
+  async function submitOrder(id) {
+    try {
+      const token = sessionStorage.getItem("clientAuthToken");
+      if (!token) {
+        setIsAuthModalOpen(true);
+        return;
+      }
+      const response = await fetchMakeOrder(token, id)
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   return (
-    // <div>
-    //   {isModalOpen && (
-    //     <Modal onClose={() => isModalOpen(false)}>
-    //       <div className="flex flex-col justify-center items-center p-4">
-    //         <div className="text-2xl">Войдите или зарегистрируйтесь</div>
-    //         <div>
-    //           <UXButton color="red" size="medium" variant="secondary">
-    //             Войти
-    //           </UXButton>
-    //           <UXButton color="red" size="medium" variant="primary">
-    //             зарегистрироваться
-    //           </UXButton>
-    //         </div>
-    //       </div>
-    //     </Modal>
-    //   )}
-    // </div>
     <section className="max-w-383 mx-auto p-4 shadow-2xl rounded-2xl">
+      {isAuthModalOpen && (
+        <Modal onClose={() => setIsAuthModalOpen(false)}>
+          <div className="flex justify-center gap-4 flex-col items-center">
+            <div className="text-2xl">Please, authorize:</div>
+            <div className="gap-2 flex items-center">
+              {authType === "logIn" && (
+                <div className="flex flex-col justify-center">
+                  <div className="text-3xl mb-2">Please, logIn</div>
+                  <LoginForm />
+                </div>
+              )}
+              {authType === "singIn" && (
+                <div className="flex flex-col justify-center">
+                  <div className="text-3xl mb-2">Please, singIn</div>
+                  <RegistrationForm role={"CLIENT"} />
+                </div>
+              )}
+              {authType === null && (
+                <>
+                  <UXButton
+                    size="medium"
+                    variant="primary"
+                    color="sky"
+                    onClick={() => setAuthType("logIn")}
+                  >
+                    logIn
+                  </UXButton>
+                  <div className="text-2xl">Or...</div>
+                  <UXButton
+                    size="medium"
+                    variant="secondary"
+                    color="sky"
+                    onClick={() => {
+                      setAuthType("singIn");
+                    }}
+                  >
+                    singIn
+                  </UXButton>
+                </>
+              )}
+            </div>
+          </div>
+        </Modal>
+      )}
       {menu &&
         menu.map((category, index) => (
           <div key={category.id}>
@@ -119,7 +86,11 @@ export function Menu({ menu }) {
                   photoUrl={dish.photoUrl}
                   key={index}
                 >
-                  <UXButton size="small" color="red">
+                  <UXButton
+                    size="small"
+                    color="red"
+                    onClick={() => submitOrder(dish.id)}
+                  >
                     Заказать
                   </UXButton>
                 </ProductCard>

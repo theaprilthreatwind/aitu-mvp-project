@@ -5,7 +5,7 @@ import { useState } from "react";
 import { fetchLoginUser } from "./api/fetch-login-user.js";
 import { useRouter } from "next/navigation";
 
-export function LoginForm() {
+export function LoginForm({ role }) {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -32,7 +32,9 @@ export function LoginForm() {
         console.log("asdlfkaf;");
         sessionStorage.clear();
       }
-      sessionStorage.setItem("mangerAuthToken", token);
+      if (role === "MANAGER") sessionStorage.setItem("mangerAuthToken", token);
+      else if (role === "CLIENT")
+        sessionStorage.setItem("clientAuthToken", token);
       router.refresh();
     } catch (error) {
       console.error(error.message);
@@ -42,7 +44,9 @@ export function LoginForm() {
   return (
     <form action={submitLogin}>
       <div className="flex flex-col gap-2 mb-4">
-        <label className="text-2xl">login</label>
+        <label className="text-2xl">
+          {role === "CLIENT" ? "Login" : "Restaurant's mane"}
+        </label>
         <UXInput
           value={name}
           onChange={(e) => handleName(e.target.value)}

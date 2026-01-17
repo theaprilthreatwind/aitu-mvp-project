@@ -16,7 +16,7 @@ export default async function Restaraunt({ params }) {
 
   return (
     <>
-      <RestaurantHeader restaurantName={restaurantName}/>
+      <RestaurantHeader restaurantName={restaurantName} />
       <main className="">
         <RestaurantInfo restaurantName={restaurantName} />
         <Menu menu={menu} />

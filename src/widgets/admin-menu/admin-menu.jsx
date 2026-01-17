@@ -54,9 +54,7 @@ export function AdminMenu({ restaurantName }) {
     }
   }
 
-  async function handleDeleteDish(id) {
-
-  }
+  async function handleDeleteDish(id) {}
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
@@ -153,7 +151,10 @@ export function AdminMenu({ restaurantName }) {
                       </ProductCard>
                     );
                   })}
-                  <NewProductCard categoryId={category.id} setShouldFetchMenu={setShouldFetchMenu}/>
+                  <NewProductCard
+                    categoryId={category.id}
+                    setShouldFetchMenu={setShouldFetchMenu}
+                  />
                 </div>
               </div>
             );
