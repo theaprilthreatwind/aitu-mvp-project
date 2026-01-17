@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -208,6 +209,22 @@ public class AppController {
                 .count();
 
         return ResponseEntity.ok(new RestaurantStats(totalIncome, dailyIncome, totalVisitors));
+    }
+    @GetMapping("/admin/orders")
+    public ResponseEntity<?> getAllOrders(@RequestHeader("Token") String token) {
+        User user = sessions.get(token);
+        if (user == null || user.getRole() != Role.MANAGER) {
+            return ResponseEntity.status(403).body("Доступ запрещен");
+        }
+
+        String restaurantName = user.getUsername();
+
+        List<Order> restaurantOrders = orders.stream()
+                .filter(order -> order.getRestaurantName().equals(restaurantName))
+                .collect(Collectors.toList());
+
+
+        return ResponseEntity.ok(restaurantOrders);
     }
 
 
