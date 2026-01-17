@@ -2,28 +2,33 @@
 
 import { LoginForm } from "@/features";
 import { fetchGetMenu } from "@/shared";
-import { AdminMenu, SideBar } from "@/widgets";
+import { AdminMenu, SideBar, StatsMenu } from "@/widgets";
 import { use, useEffect, useState } from "react";
 
 export default function AdminPanel({ params }) {
   const [isLogined, setIsLogined] = useState(false);
-  const { restaurantName } = use(params);
-  
-  useEffect(() => {
+  const [currentTab, setTab] = useState("menu");
+  const { restaurantName = "error" } = use(params);
 
+  const tabs = {
+    menu: <AdminMenu restaurantName={restaurantName} />,
+    stats: <StatsMenu restaurantName={restaurantName} />,
+    orders: <div>orders</div>,
+  };
+
+  useEffect(() => {
     const isManagerAuth = sessionStorage.getItem("mangerAuthToken");
-    console.log(isManagerAuth)
-    setIsLogined(isManagerAuth);
+    setIsLogined(true);
   });
 
   const render = isLogined ? (
     <div className="flex max-w-screen">
-      <SideBar />
-      <AdminMenu restaurantName={restaurantName} />
+      <SideBar setTab={setTab} />
+      {tabs[currentTab]}
     </div>
   ) : (
     <div className="max-w-300 p-4 mx-auto mt-20 shadow-2xl rounded-2xl border border-gray-200">
-      <LoginForm role="MANAGER"/>
+      <LoginForm role="MANAGER" />
     </div>
   );
   return render;

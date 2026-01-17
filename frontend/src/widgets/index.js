@@ -12,3 +12,4 @@ export { Menu } from "./menu/menu.jsx";
 export { RegistrationMenu } from "./registration-menu/registration-menu.jsx";
 export { RestaurantHeader } from "./restaurant-header/restaurant-header.jsx";
 export { RestaurantInfo } from "./restaurant-info/restaurant-info.jsx";
+export { StatsMenu } from "./stats-menu/stats-menu.jsx";

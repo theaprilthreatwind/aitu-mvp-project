@@ -18,11 +18,9 @@ export function AdminMenu({ restaurantName }) {
       if (shouldFetchMenu) {
         (async () => {
           const response = await fetchGetMenu(restaurantName);
-          console.log(response);
           setMenu(response);
           setShouldFetchMenu(false);
         })();
-        setShouldFetchMenu(false); // Reset after fetch
       }
     } catch (error) {
       console.error(error.message);
@@ -45,7 +43,7 @@ export function AdminMenu({ restaurantName }) {
         title,
         description,
         dishes,
-        token
+        token,
       );
       setShouldFetchMenu(true);
       console.log(response);

@@ -8,7 +8,7 @@ import { RegistrationMenu } from "..";
 export function Menu({ menu }) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authType, setAuthType] = useState(null);
-  
+
   async function submitOrder(id) {
     try {
       const token = sessionStorage.getItem("clientAuthToken");
@@ -16,7 +16,7 @@ export function Menu({ menu }) {
         setIsAuthModalOpen(true);
         return;
       }
-      const response = await fetchMakeOrder(token, id)
+      const response = await fetchMakeOrder(token, id);
     } catch (error) {
       console.error(error.message);
     }

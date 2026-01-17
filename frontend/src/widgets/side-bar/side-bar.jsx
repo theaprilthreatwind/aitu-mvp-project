@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import { UXButton } from "@/shared";
-import { GrFormNext, GrMenu, GrRestaurant } from "react-icons/gr";
+import { GrFormNext, GrMenu, GrRestaurant, GrList } from "react-icons/gr";
 import { useRouter } from "next/navigation";
-export function SideBar() {
+export function SideBar({ setTab }) {
   const router = useRouter();
   return (
     <aside className="bg-white shadow-md w-1/9 flex flex-col rounded-r-lg h-screen">
@@ -14,7 +14,7 @@ export function SideBar() {
             variant="secondary"
             onClick={() => {
               sessionStorage.clear();
-              router.refresh()
+              router.refresh();
             }}
           >
             LogOut
@@ -25,12 +25,12 @@ export function SideBar() {
         <ul className="space-y-2">
           <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
             <button
-              onClick={null}
+              onClick={() => setTab("stats")}
               className="w-full flex items-center justify-between gap-2"
             >
               <div className="flex items-center gap-2">
                 <GrRestaurant />
-                Dashboard
+                stats
               </div>
               <GrFormNext />
             </button>
@@ -38,12 +38,25 @@ export function SideBar() {
 
           <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
             <button
-              onClick={null}
+              onClick={() => setTab("menu")}
               className="w-full flex items-center justify-between gap-2"
             >
               <div className="flex items-center gap-2">
                 <GrMenu />
                 Menu
+              </div>
+              <GrFormNext />
+            </button>
+          </li>
+
+          <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
+            <button
+              onClick={() => setTab("orders")}
+              className="w-full flex items-center justify-between gap-2"
+            >
+              <div className="flex items-center gap-2">
+                <GrList />
+                Orders
               </div>
               <GrFormNext />
             </button>
