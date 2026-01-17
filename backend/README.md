@@ -43,7 +43,7 @@ RESTful API сервис для системы заказа еды из рест
     ```bash
     ngrok http 8080
     ```
-5.  **Скопируйте Forwarding URL; например, https://obliging-greatly-monkfish.ngrok-free.app/**
+4.  **Скопируйте Forwarding URL; например, https://obliging-greatly-monkfish.ngrok-free.app/**
    
 **Важно:** Так как данные хранятся в памяти проекта, при перезапуске приложения все созданные пользователи, блюда и заказы будут сброшены.
 
@@ -82,5 +82,6 @@ RESTful API сервис для системы заказа еды из рест
 ---
 
 **Автор:** Найданов Мирон
+
 
 
