@@ -8,11 +8,12 @@ import { use, useEffect, useState } from "react";
 export default function AdminPanel({ params }) {
   const [isLogined, setIsLogined] = useState(false);
   const { restaurantName } = use(params);
-  console.log(isLogined);
-
+  
   useEffect(() => {
-    const isManagerAuth = sessionStorage?.getItem("MangerauthToken");
-    setIsLogined(isAuth);
+
+    const isManagerAuth = sessionStorage.getItem("mangerAuthToken");
+    console.log(isManagerAuth)
+    setIsLogined(isManagerAuth);
   });
 
   const render = isLogined ? (

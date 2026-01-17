@@ -25,10 +25,7 @@ export function Navbar() {
               </Link>
             ))}
           </div>
-          <a href="/login" className="menuBtn">
-            Login
-          </a>
-          <a href="/registration" className="menuBtn">
+          <a href="/register-restaurant" className="menuBtn">
             singIn
           </a>
         </div>

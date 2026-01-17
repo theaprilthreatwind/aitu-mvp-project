@@ -19,7 +19,7 @@ export function LoginForm() {
     else setName(value);
   };
 
-  async function createNewUser(formData) {
+  async function submitLogin(formData) {
     try {
       formData.preventDefault;
       const name = formData.get("name");
@@ -28,12 +28,11 @@ export function LoginForm() {
       const { role, token } = response;
       console.log(response);
       console.log(token);
-      console.log({ oldAuthToken: sessionStorage.getItem(token) });
       if (sessionStorage.getItem(token)) {
         console.log("asdlfkaf;");
         sessionStorage.clear();
       }
-      sessionStorage.setItem("MangerauthToken", token);
+      sessionStorage.setItem("mangerAuthToken", token);
       router.refresh();
     } catch (error) {
       console.error(error.message);
@@ -41,7 +40,7 @@ export function LoginForm() {
   }
 
   return (
-    <form action={createNewUser}>
+    <form action={submitLogin}>
       <div className="flex flex-col gap-2 mb-4">
         <label className="text-2xl">login</label>
         <UXInput

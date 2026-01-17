@@ -36,7 +36,7 @@ export function AdminMenu({ restaurantName }) {
       setIsAddCategoryOpen(false);
       const title = formData.get("title");
       const description = formData.get("description");
-      const token = sessionStorage.getItem("MangerauthToken");
+      const token = sessionStorage.getItem("mangerAuthToken");
       const categoryId = GenerateId(10000000, 99999999);
       const dishes = [];
       console.log({ categoryId, title, description, dishes, token });
