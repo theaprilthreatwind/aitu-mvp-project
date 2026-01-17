@@ -36,6 +36,14 @@ RESTful API сервис для системы заказа еды из рест
     ```bash
     ./mvnw spring-boot:run
     ```
+3.  **Подключите доступ к фронтенду:**
+    ```bash
+    ngrok config add-authtoken 38DU12yBHRx4Jo34wRMlPxpFZP8_89xoDdkLsa2iec1G7PE2q
+    ```
+    ```bash
+    ngrok http 8080
+    ```
+4.  **Скопируйте Forwarding URL; например, https://unnegotiated-apocalyptically-paulette.ngrok-free.dev (Его нужно передать во фронтенд)**
 
 **Важно:** Так как данные хранятся в памяти проекта, при перезапуске приложения все созданные пользователи, блюда и заказы будут сброшены.
 
@@ -72,4 +80,5 @@ RESTful API сервис для системы заказа еды из рест
 | `GET` | `/api/client/my-orders` | История заказов |
 
 ---
+
 **Автор:** Найданов Мирон
