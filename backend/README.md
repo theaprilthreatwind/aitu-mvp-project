@@ -38,7 +38,7 @@ RESTful API сервис для системы заказа еды из рест
     ```
 3.  **Подключите доступ к фронтенду:**
     ```bash
-    `ngrok http 8080`
+    ngrok http 8080
     ```
 4.  **Скопируйте Forwarding URL; например, https://obliging-greatly-monkfish.ngrok-free.app/**
    
@@ -79,3 +79,4 @@ RESTful API сервис для системы заказа еды из рест
 ---
 
 **Автор:** Найданов Мирон
+
