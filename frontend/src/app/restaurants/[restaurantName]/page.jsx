@@ -1,3 +1,4 @@
+import { AiChatBar } from "@/features";
 import { fetchGetMenu, fetchRestaurantList } from "@/shared";
 import { Menu, RestaurantHeader, RestaurantInfo } from "@/widgets";
 
@@ -26,10 +27,9 @@ export default async function Restaraunt({ params }) {
       ) : (
         <>
           <RestaurantHeader restaurantName={restaurantName} />
-          <main className="">
-            <RestaurantInfo restaurantName={restaurantName} />
-            <Menu menu={menu} />
-          </main>
+          <RestaurantInfo restaurantName={restaurantName} />
+          <Menu menu={menu} />
+          <AiChatBar />
         </>
       )}
     </>
