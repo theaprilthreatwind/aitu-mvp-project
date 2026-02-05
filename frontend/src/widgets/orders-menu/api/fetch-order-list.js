@@ -9,7 +9,9 @@ export async function fetchOrderList(token) {
       },
     },
   );
-  console.log(response);
+  if (!response.ok) {
+    throw new Error(`Request error. code: ${response.status}`);
+  }
   if (response.headers.get("content-type") == "text/html") {
     const data = await response.text();
     console.log(data);
