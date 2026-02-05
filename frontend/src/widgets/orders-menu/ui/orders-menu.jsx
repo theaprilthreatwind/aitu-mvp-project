@@ -2,12 +2,12 @@
 
 import { ProductCard } from "@/entities";
 import { useEffect, useState } from "react";
-import { fetchOrderList } from "./api/fetch-order-list";
+import { fetchOrderList } from "../api/fetch-order-list";
 
-export function OrdersMenu(restaurantName) {
+export function OrdersMenu() {
   const [orders, setOrders] = useState(null);
   const [shouldFetchOrders, setShouldFetchOrders] = useState(true);
-  console.log(orders)
+  console.log(orders);
   useEffect(() => {
     if (shouldFetchOrders)
       (async () => {

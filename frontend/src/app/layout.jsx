@@ -1,4 +1,4 @@
-import './globals.css'
+import Script from "next/script";
 
 export default function Layout({ children }) {
   return (
@@ -6,7 +6,7 @@ export default function Layout({ children }) {
       <body>
         {/* Layout UI */}
         {/* Place children where you want to render a page or nested layout */}
-        <main>{children}</main>
+        <>{children}</>
       </body>
     </html>
   );

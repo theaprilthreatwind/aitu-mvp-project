@@ -1,5 +1,14 @@
-import { About, HeroSection, Reservation, Team, WhoWeAre, Qualities, MenuHelloPage, Footer} from "@/widgets";
-import "./page.css"
+import {
+  About,
+  HeroSection,
+  Reservation,
+  Team,
+  WhoWeAre,
+  Qualities,
+  MenuHelloPage,
+  Footer,
+} from "@/widgets";
+import "./page.css";
 export default function HomePage() {
   return (
     <>

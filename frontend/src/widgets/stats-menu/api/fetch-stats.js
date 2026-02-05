@@ -7,5 +7,6 @@ export async function fetchStats(token) {
     },
   });
   const data = await response.json();
+  console.log(data)
   return data
 }

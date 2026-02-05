@@ -58,7 +58,7 @@ export function AdminMenu({ restaurantName }) {
     setShouldFetchMenu(true);
   }
   return (
-    <main className="w-8/9 h-screen">
+    <main className="w-8/9 h-screen overflow-y-scroll">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
         <div className="">Menu Managament</div>
       </header>

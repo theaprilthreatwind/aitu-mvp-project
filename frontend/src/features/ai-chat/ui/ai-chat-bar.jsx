@@ -5,7 +5,7 @@ import { FaPaperPlane } from "react-icons/fa6";
 import { sendQuestion } from "../api/send-question.js";
 
 export function AiChatBar() {
-  const [chatHistory, setChatHistory] = useState(chatHistoryExmaple); // история чата
+  const [chatHistory, setChatHistory] = useState([]); // история чата
   const [isChatBarShown, setIsChatBarShown] = useState(false); // true <=> false, видна ли панель
   const [status, setStatus] = useState("typing"); // "typing" <=> "submitting"
   const [userText, setUserText] = useState(""); // текст пользователя
@@ -25,8 +25,6 @@ export function AiChatBar() {
     });
 
     setUserText("");
-
-    // const chatbotResponse = await sendQuestion(userText);
   }
 
   // обработчик клика не на панель
@@ -50,7 +48,7 @@ export function AiChatBar() {
           {chatHistory.map((element, index) =>
             element.role === "user" ? (
               // если роль user
-              <div key={index} className="flex flex-col items-end mb-4">
+              <div key={index} className="flex flex-col items-end mb-4 bg-white">
                 <div className="flex flex-col items-end max-w-70 min-w-60 p-4 border border-gray-200 rounded-b-2xl rounded-l-2xl shadow-xl">
                   <div className="mb-2 text-xl">{element.role}</div>
                   <div>{element.message}</div>

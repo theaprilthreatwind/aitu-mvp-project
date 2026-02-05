@@ -1,25 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import { fetchStats } from "./api/fetch-stats";
 
-export function StatsMenu() {
-  const [stats, setStats] = useState(null);
-  const [shouldFetchOrders, setShouldFetchOrders] = useState(true);
+export function StatsMenu({token}) {
+  const stats = use(fetchStats(token));
   console.log(stats);
-  useEffect(() => {
-    if (shouldFetchOrders)
-      (async () => {
-        try {
-          const token = sessionStorage.getItem("mangerAuthToken");
-          const stats1 = await fetchStats(token);
-          setShouldFetchOrders(false);
-          setStats(stats1);
-        } catch (error) {
-          console.log(error.message);
-        }
-      })();
-  }, [shouldFetchOrders]);
   return (
     <main className="w-8/9 h-screen">
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">

@@ -48,7 +48,7 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
         <img src="/food.jpg" alt="dish" className="h-40 w-full object-cover" />
         <Popover
           isOpen={isModalOpen}
-          positions={["bottom"]}
+          positions={["bottom", 'right']}
           padding={10}
           reposition={true}
           onClickOutside={() => setIsModalopen(false)}
@@ -117,31 +117,3 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
     </div>
   );
 }
-
-// <Modal isOpen={isAddCategoryOpen} contentLabel="category" className="">
-//   <div>
-//     <div className="flex flex-col">
-//       <form action="sumbitDish">
-//         <div className="flex flex-col">
-//           <label className="text-2xl font-bold mb-2 ">Name of Category</label>
-//           <UXInput type="text" />
-//         </div>
-//         <div className="flex mt-4 justify-between">
-//           <UXButton size="medium" color="red">
-//             New category
-//           </UXButton>
-//           <UXButton
-//             type="button"
-//             size="small"
-//             color="sky"
-//             onClick={() => {
-//               setIsModalopen(false);
-//             }}
-//           >
-//             exit
-//           </UXButton>
-//         </div>
-//       </form>
-//     </div>
-//   </div>
-// </Modal>;

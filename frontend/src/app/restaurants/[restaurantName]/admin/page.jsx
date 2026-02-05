@@ -1,33 +1,46 @@
 "use client";
 import { LoginForm } from "@/features";
+import { LoadingSkeleton } from "@/shared";
 import { AdminMenu, OrdersMenu, SideBar, StatsMenu } from "@/widgets";
-import { use, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 
 export default function AdminPanel({ params }) {
-  const [isLogined, setIsLogined] = useState(false);
-  const [currentTab, setTab] = useState("menu");
   const { restaurantName = "error" } = use(params);
-
-  const tabs = {
-    menu: <AdminMenu restaurantName={restaurantName} />,
-    stats: <StatsMenu restaurantName={restaurantName} />,
-    orders: <OrdersMenu restaurantName={restaurantName}/>
+  const [token, setToken] = useState(null);
+  const [currentTab, setTab] = useState("menu");
+  const tabs = (currentTab) => {
+    switch (currentTab) {
+      case "menu":
+        return <AdminMenu restaurantName={restaurantName}/>;
+      case "stats":
+        return <StatsMenu restaurantName={restaurantName} token={token}/>;
+      case "orders":
+        return <OrdersMenu restaurantName={restaurantName} />;
+      default:
+        return <AdminMenu restaurantName={restaurantName} />;
+    }
   };
 
+  console.log(token);
   useEffect(() => {
-    const isManagerAuth = sessionStorage.getItem("mangerAuthToken");
-    setIsLogined(isManagerAuth);
-  });
+    const token = sessionStorage.getItem("mangerAuthToken");
+    setToken(token);
+  }, []);
 
-  const render = isLogined ? (
+  if (token === null) {
+    return <LoadingSkeleton />;
+  } else if (!token) {
+    return (
+      <div className="max-w-300 p-4 mx-auto mt-20 shadow-2xl rounded-2xl border border-gray-200">
+        <LoginForm role="MANAGER" />
+      </div>
+    );
+  }
+
+  return (
     <div className="flex max-w-screen">
       <SideBar setTab={setTab} />
-      {tabs[currentTab]}
-    </div>
-  ) : (
-    <div className="max-w-300 p-4 mx-auto mt-20 shadow-2xl rounded-2xl border border-gray-200">
-      <LoginForm role="MANAGER" />
+      <Suspense fallback={<LoadingSkeleton />}>{tabs(currentTab)}</Suspense>
     </div>
   );
-  return render;
 }
