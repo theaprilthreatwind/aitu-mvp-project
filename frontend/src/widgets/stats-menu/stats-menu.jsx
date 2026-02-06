@@ -1,10 +1,17 @@
 "use client";
 
-import { Suspense, use, useEffect, useState } from "react";
+import { Suspense, use, useEffect, useMemo, useState } from "react";
 import { fetchStats } from "./api/fetch-stats";
 
-export function StatsMenu({token}) {
-  const stats = use(fetchStats(token));
+const statsCache = new Map();
+
+export function StatsMenu({ token }) {
+
+  if (!statsCache.has(token)) {
+    statsCache.set(token, fetchStats(token));
+  }
+
+  const stats = use(statsCache.get(token));
   console.log(stats);
   return (
     <main className="w-8/9 h-screen">

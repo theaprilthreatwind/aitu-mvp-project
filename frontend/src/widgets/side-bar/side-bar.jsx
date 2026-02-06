@@ -1,7 +1,7 @@
 "use client";
 
 import { UXButton } from "@/shared";
-import { GrFormNext, GrMenu, GrRestaurant, GrList } from "react-icons/gr";
+import { GrFormNext, GrMenu, GrRestaurant, GrList, GrQr } from "react-icons/gr";
 import { useRouter } from "next/navigation";
 export function SideBar({ setTab }) {
   const router = useRouter();
@@ -57,6 +57,18 @@ export function SideBar({ setTab }) {
               <div className="flex items-center gap-2">
                 <GrList />
                 Orders
+              </div>
+              <GrFormNext />
+            </button>
+          </li>
+          <li className="flex items-center py-2 rounded-lg text-neutral-600 hover:bg-gray-100">
+            <button
+              onClick={() => setTab("qr-code")}
+              className="w-full flex items-center justify-between gap-2"
+            >
+              <div className="flex items-center gap-2">
+                <GrQr />
+                QR-code
               </div>
               <GrFormNext />
             </button>

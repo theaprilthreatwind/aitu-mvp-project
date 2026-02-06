@@ -8,6 +8,7 @@ import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 import { RxCross1 } from "react-icons/rx";
 import { fetchDeleteDish } from "./api/fetch-delete-dish";
+import QRCode from "react-qr-code";
 
 export function AdminMenu({ restaurantName }) {
   const [menu, setMenu] = useState(null);

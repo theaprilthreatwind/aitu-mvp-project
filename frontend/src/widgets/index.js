@@ -14,3 +14,4 @@ export { RestaurantHeader } from "./restaurant-header/restaurant-header.jsx";
 export { RestaurantInfo } from "./restaurant-info/restaurant-info.jsx";
 export { StatsMenu } from "./stats-menu/stats-menu.jsx";
 export { OrdersMenu } from "./orders-menu/index.js";
+export { QRCodeMenu } from "./qr-code-menu/index.js";

@@ -1,4 +1,6 @@
-import Script from "next/script";
+import { Suspense } from "react";
+import "./globals.css";
+import { Loading } from "@/shared";
 
 export default function Layout({ children }) {
   return (
