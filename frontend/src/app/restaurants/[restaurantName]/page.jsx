@@ -1,6 +1,11 @@
 import { AiChatBar, HeatmapTracker } from "@/features";
 import { fetchGetMenu, fetchRestaurantList } from "@/shared";
-import { Menu, RestaurantHeader, RestaurantInfo } from "@/widgets";
+import {
+  AssistantMenu,
+  Menu,
+  RestaurantHeader,
+  RestaurantInfo,
+} from "@/widgets";
 
 async function getMenu(restaurantName) {
   try {
@@ -17,7 +22,7 @@ async function getMenu(restaurantName) {
 export default async function Restaraunt({ params }) {
   const { restaurantName } = await params;
   const menu = await getMenu(restaurantName);
-  console.log(menu)
+  console.log(menu);
   return (
     <>
       {menu === "does not exsist" ? (
@@ -29,7 +34,7 @@ export default async function Restaraunt({ params }) {
           <RestaurantHeader restaurantName={restaurantName} />
           <RestaurantInfo restaurantName={restaurantName} />
           <Menu menu={menu} />
-          <AiChatBar menu={menu} />
+          <AssistantMenu />
         </>
       )}
     </>

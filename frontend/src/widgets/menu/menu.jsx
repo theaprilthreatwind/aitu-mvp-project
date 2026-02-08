@@ -127,6 +127,7 @@ export function Menu({ menu }) {
                       size="small"
                       color="red"
                       onClick={() => setIsOrderFormOpen(true)}
+                      key={index}
                     >
                       Заказать
                     </UXButton>
