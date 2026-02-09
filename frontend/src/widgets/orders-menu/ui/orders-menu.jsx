@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductCard } from "@/entities";
+import { ProductUI } from "@/entities";
 import { useEffect, useState } from "react";
 import { fetchOrderList } from "../api/fetch-order-list";
 
@@ -30,7 +30,7 @@ export function OrdersMenu() {
           ) : (
             orders.map((dish, productIndex) => {
               return (
-                <ProductCard
+                <ProductUI
                   key={productIndex}
                   name={dish.title}
                   description={dish.description}

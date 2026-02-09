@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ProductCard } from "@/entities";
+import { ProductUI } from "@/entities";
 import { Popover } from "react-tiny-popover";
 import { fetchGetMenu, GenerateId, UXButton, UXInput } from "@/shared";
 import { NewProductCard } from "@/features";
@@ -124,7 +124,7 @@ export function AdminMenu({ restaurantName }) {
                 <div className="overflow-x-scroll flex gap-2 py-4">
                   {category.dishes.map((dish, productIndex) => {
                     return (
-                      <ProductCard
+                      <ProductUI
                         name={dish.title}
                         description={dish.description}
                         price={dish.price}
@@ -151,7 +151,7 @@ export function AdminMenu({ restaurantName }) {
                             </UXButton>
                           </div>
                         </div>
-                      </ProductCard>
+                      </ProductUI>
                     );
                   })}
                   <NewProductCard

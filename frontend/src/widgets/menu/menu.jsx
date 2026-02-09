@@ -1,5 +1,5 @@
 "use client";
-import { ProductCard } from "@/entities";
+import { ProductUI } from "@/entities";
 import { LoginForm, RegistrationForm } from "@/features";
 import { Modal, UXButton, UXInput } from "@/shared";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import { Popover } from "react-tiny-popover";
 import { Toaster, toast } from "react-hot-toast";
 
 export function Menu({ menu }) {
+  console.log(menu);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
   const [authType, setAuthType] = useState(null);
@@ -90,8 +91,8 @@ export function Menu({ menu }) {
               </div>
             </div>
             <div className="flex overflow-x-scroll p-5 gap-4 min-h-80 border border-gray-200 rounded-2xl">
-              {category.dishes.map((dish, index) => (
-                <ProductCard
+              {category.products.map((dish, index) => (
+                <ProductUI
                   name={dish.title}
                   description={dish.description}
                   price={dish.price}
@@ -132,7 +133,7 @@ export function Menu({ menu }) {
                       Заказать
                     </UXButton>
                   </Popover>
-                </ProductCard>
+                </ProductUI>
               ))}
             </div>
           </div>
