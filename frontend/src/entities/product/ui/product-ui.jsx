@@ -21,6 +21,7 @@ export function ProductUI({
   description,
   price,
   photoUrl,
+  productId,
   children,
   className,
   ...props
@@ -30,8 +31,14 @@ export function ProductUI({
     className,
   );
 
-  const product = new Product(categoryId, title, description, price, photoUrl);
-
+  const product = Product(
+    categoryId,
+    title,
+    description,
+    price,
+    photoUrl,
+    productId,
+  );
   return (
     <div {...props}>
       <div className={classNames}>
@@ -42,7 +49,9 @@ export function ProductUI({
         />
         <div className="px-4 py-2 justify">
           <div className="">
-            <div className="text-lg font-bold flex">Названия блюда: {product.title}</div>
+            <div className="text-lg font-bold flex">
+              Названия блюда: {product.title}
+            </div>
             <div className="text-lg text-gray-600">{product.description}</div>
             <div className="text-lg text-gray-600">
               Цена: {product.price} тенге

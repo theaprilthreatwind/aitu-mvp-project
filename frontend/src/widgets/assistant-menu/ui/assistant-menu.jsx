@@ -5,17 +5,6 @@ import { useRef, useState, useEffect } from "react";
 import { MessageUI } from "@/entities";
 import { AssistantSendForm } from "@/features";
 
-const chatHistoryExample = [
-  {
-    role: "user",
-    content: "hello nigga",
-  },
-  {
-    role: "assistant",
-    content: "fuck you asshole",
-  },
-];
-
 export function AssistantMenu() {
   const [assistantChat, setAssistantChat] = useState({
     history: [],
@@ -29,13 +18,12 @@ export function AssistantMenu() {
     if (!chatMenuRef.current?.contains(event.target) && isChatMenuShown) {
       setIsChatMenuShown(false);
     }
-  }
+    }
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-
     return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [isChatMenuShown]);
 
   if (isChatMenuShown) {
     return (
@@ -50,7 +38,10 @@ export function AssistantMenu() {
               />
             ))}
           </div>
-          <AssistantSendForm setAssistantChat={setAssistantChat} assistantChat={assistantChat}/>
+          <AssistantSendForm
+            setAssistantChat={setAssistantChat}
+            assistantChat={assistantChat}
+          />
         </div>
       </div>
     );

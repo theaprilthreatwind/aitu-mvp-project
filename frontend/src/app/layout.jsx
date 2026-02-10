@@ -1,14 +1,16 @@
 import { Suspense } from "react";
 import "./globals.css";
-import { Loading } from "@/shared";
+import { LoadingSkeleton } from "@/shared";
+import { Toaster } from "react-hot-toast";
 
 export default function Layout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* Layout UI */}
-        {/* Place children where you want to render a page or nested layout */}
-        <>{children}</>
+        <Suspense fallback={<LoadingSkeleton />}>
+          <>{children}</>
+        </Suspense>
+        <Toaster />
       </body>
     </html>
   );

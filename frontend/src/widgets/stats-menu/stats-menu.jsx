@@ -25,11 +25,11 @@ export function StatsMenu({ token }) {
             <span>{stats === null ? "Wait..." : stats.totalIncome}</span>
           </div>
           <div>
-            Total income:{" "}
+            Daily income:{" "}
             <span>{stats === null ? "Wait..." : stats.dailyIncome}</span>
           </div>
           <div>
-            Total income:{" "}
+            Total orders:{" "}
             <span>{stats === null ? "Wait..." : stats.totalVisitors}</span>
           </div>
         </div>

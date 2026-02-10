@@ -1,1 +1,1 @@
-export { Restaurant } from "./model/restaurant-model.js";
+export { getRestaurantInformation } from "./api/get-restaurant-information.js";

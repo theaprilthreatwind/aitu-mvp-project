@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ProductUI } from "@/entities";
+import { getRestaurantInformation, ProductUI } from "@/entities";
 import { Popover } from "react-tiny-popover";
-import { fetchGetMenu, GenerateId, UXButton, UXInput } from "@/shared";
+import { GenerateId, UXButton, UXInput } from "@/shared";
 import { NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 import { RxCross1 } from "react-icons/rx";
@@ -14,13 +14,14 @@ export function AdminMenu({ restaurantName }) {
   const [menu, setMenu] = useState(null);
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [shouldFetchMenu, setShouldFetchMenu] = useState(true);
+  console.log(menu)
 
   useEffect(() => {
     try {
       if (shouldFetchMenu) {
         (async () => {
-          const response = await fetchGetMenu(restaurantName);
-          setMenu(response);
+          const response = await getRestaurantInformation(restaurantName);
+          setMenu(response.categories);
           setShouldFetchMenu(false);
         })();
       }
@@ -122,7 +123,7 @@ export function AdminMenu({ restaurantName }) {
               <div className="mt-4" key={category.id}>
                 <div className="text-4xl font-bold">{category.title}</div>
                 <div className="overflow-x-scroll flex gap-2 py-4">
-                  {category.dishes.map((dish, productIndex) => {
+                  {category.products.map((dish, productIndex) => {
                     return (
                       <ProductUI
                         name={dish.title}
