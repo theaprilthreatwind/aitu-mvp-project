@@ -33,9 +33,10 @@ public class AppController {
 
         users.add(new User("Los Pollos Hermanos", "pochta.admina@gmail.com", "1234", Role.MANAGER));
         users.add(new User("guest", "pochta.usera@gmail.com", "1234", Role.CLIENT));
+
     }
 
-    //TODO Страница 1: Авторизация
+    // TODO Страница 1: Авторизация
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
@@ -70,7 +71,8 @@ public class AppController {
             return ResponseEntity.ok(response);
         }
 
-        return ResponseEntity.ok("Регистрация прошла успешно под логином: " + user.getUsername() + ". Приятного аппетита!");
+        return ResponseEntity
+                .ok("Регистрация прошла успешно под логином: " + user.getUsername() + ". Приятного аппетита!");
     }
 
     @PostMapping("/login")
@@ -78,7 +80,6 @@ public class AppController {
         for (User user : users) {
             if (user.getUsername().equals(loginRequest.getUsername()) &&
                     user.getPassword().equals(loginRequest.getPassword())) {
-
 
                 String token = UUID.randomUUID().toString();
                 sessions.put(token, user);
@@ -92,7 +93,7 @@ public class AppController {
         return ResponseEntity.status(401).body("Неверный логин/пароль. Попробуйте еще раз.");
     }
 
-    //TODO Страница 2: Дэшборд Менеджера
+    // TODO Страница 2: Дэшборд Менеджера
 
     @GetMapping("/categories")
     public List<Category> getAllCategories() {
@@ -101,18 +102,20 @@ public class AppController {
 
     @GetMapping("/categories/{id}/dishes")
     public List<Dish> getDishesByCategory(@PathVariable Integer id) {
-            return foodService.getDishesByCategoryId(id);
+        return foodService.getDishesByCategoryId(id);
     }
 
     @PostMapping("/admin/dish")
     public ResponseEntity<?> createDish(@RequestHeader("Token") String token,
-                                        @RequestBody CreateDishRequest request) {
+            @RequestBody CreateDishRequest request) {
         User user = sessions.get(token);
-        if (user == null || user.getRole() != Role.MANAGER) return ResponseEntity.status(403).body("Нет прав");
+        if (user == null || user.getRole() != Role.MANAGER)
+            return ResponseEntity.status(403).body("Нет прав");
 
         Category category = foodService.getCategoryById(request.getCategoryId());
 
-        if (category == null) return ResponseEntity.status(404).body("Категория не найдена");
+        if (category == null)
+            return ResponseEntity.status(404).body("Категория не найдена");
 
         if (!category.getOwnerName().equals(user.getUsername())) {
             return ResponseEntity.status(403).body("Это не ваша категория! Вы не можете добавлять сюда блюда.");
@@ -131,12 +134,14 @@ public class AppController {
 
     @DeleteMapping("/admin/dish/{id}")
     public ResponseEntity<?> deleteDish(@RequestHeader("Token") String token,
-                                        @PathVariable Integer id) {
+            @PathVariable Integer id) {
         User user = sessions.get(token);
-        if (user == null || user.getRole() != Role.MANAGER) return ResponseEntity.status(403).body("Нет прав");
+        if (user == null || user.getRole() != Role.MANAGER)
+            return ResponseEntity.status(403).body("Нет прав");
 
         Dish dish = foodService.getDishById(id);
-        if (dish == null) return ResponseEntity.status(404).body("Блюдо не найдено");
+        if (dish == null)
+            return ResponseEntity.status(404).body("Блюдо не найдено");
 
         Category category = foodService.getCategoryById(dish.getCategoryId());
         if (category == null || !category.getOwnerName().equals(user.getUsername())) {
@@ -149,7 +154,7 @@ public class AppController {
 
     @PostMapping("/admin/category")
     public ResponseEntity<?> createCategory(@RequestHeader("Token") String token,
-                                            @RequestBody CategoryRequest request) {
+            @RequestBody CategoryRequest request) {
         User user = sessions.get(token);
         if (user == null || user.getRole() != Role.MANAGER) {
             return ResponseEntity.status(403).body("Нет прав");
@@ -158,20 +163,21 @@ public class AppController {
         Category created = foodService.addCategory(
                 request.getTitle(),
                 request.getDescription(),
-                user.getUsername()
-        );
+                user.getUsername());
 
         return ResponseEntity.ok(created);
     }
 
     @DeleteMapping("/admin/category/{id}")
     public ResponseEntity<?> deleteCategory(@RequestHeader("Token") String token,
-                                            @PathVariable Integer id) {
+            @PathVariable Integer id) {
         User user = sessions.get(token);
-        if (user == null || user.getRole() != Role.MANAGER) return ResponseEntity.status(403).body("Нет прав");
+        if (user == null || user.getRole() != Role.MANAGER)
+            return ResponseEntity.status(403).body("Нет прав");
 
         Category category = foodService.getCategoryById(id);
-        if (category == null) return ResponseEntity.status(404).body("Категория не найдена");
+        if (category == null)
+            return ResponseEntity.status(404).body("Категория не найдена");
 
         if (!category.getOwnerName().equals(user.getUsername())) {
             return ResponseEntity.status(403).body("Вы не можете удалить чужую категорию");
@@ -202,14 +208,15 @@ public class AppController {
                 .mapToDouble(Order::getTotalPrice)
                 .sum();
 
-        long totalVisitors = orders.stream()
+        long TotalOrders = orders.stream()
                 .filter(order -> order.getRestaurantName().equals(restaurantName))
                 .map(Order::getClientName)
                 .distinct()
                 .count();
 
-        return ResponseEntity.ok(new RestaurantStats(totalIncome, dailyIncome, totalVisitors));
+        return ResponseEntity.ok(new RestaurantStats(totalIncome, dailyIncome, TotalOrders));
     }
+
     @GetMapping("/admin/orders")
     public ResponseEntity<?> getAllOrders(@RequestHeader("Token") String token) {
         User user = sessions.get(token);
@@ -223,12 +230,10 @@ public class AppController {
                 .filter(order -> order.getRestaurantName().equals(restaurantName))
                 .collect(Collectors.toList());
 
-
         return ResponseEntity.ok(restaurantOrders);
     }
 
-
-    //TODO Страница 3: Логика Юзера
+    // TODO Страница 3: Логика Юзера
 
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<?> getRestaurantMenu(@PathVariable String restaurantName) {
@@ -246,34 +251,46 @@ public class AppController {
         }
         return ResponseEntity.ok(restaurants);
     }
-
+    
     @PostMapping("/client/order")
-    public ResponseEntity<?> createOrder(@RequestHeader("Token") String token,
-                                         @RequestBody OrderRequest request) {
-        User user = sessions.get(token);
-        if (user == null) return ResponseEntity.status(401).body("Нужно войти в систему");
+    public ResponseEntity<?> createOrder(@RequestBody OrderRequest request) {
 
         List<Dish> items = new ArrayList<>();
-        double total = 0;
+        String restaurantName = "Unknown";
 
         for (Integer dishId : request.getDishIds()) {
-            foodService.getAllDishes().stream()
-                    .filter(d -> d.getId().equals(dishId))
-                    .findFirst()
-                    .ifPresent(d -> items.add(d));
+            Dish foundDish = foodService.getDishById(dishId);
+
+            if (foundDish != null) {
+                items.add(foundDish);
+                Integer catId = foundDish.getCategoryId();
+
+                foodService.getAllCategories().stream()
+                        .filter(c -> c.getId().equals(catId))
+                        .findFirst()
+                        .ifPresent(category -> {
+                        });
+
+                for (Category c : foodService.getAllCategories()) {
+                    if (c.getId().equals(catId)) {
+                        restaurantName = c.getOwnerName();
+                        break;
+                    }
+                }
+            }
         }
 
         if (items.isEmpty()) {
             return ResponseEntity.badRequest().body("Список блюд пуст или неверные ID");
         }
 
-        Order order = new Order(orders.size() + 1,
-                user.getUsername(),
-                "Restaurant",
+        Order order = new Order(
+                orders.size() + 1,
+                "Guest",
+                restaurantName,
                 request.getTableNumber(),
                 0,
-                items
-        );
+                items);
 
         double sum = items.stream().mapToDouble(Dish::getPrice).sum();
         order.setTotalPrice(sum);
@@ -285,7 +302,8 @@ public class AppController {
     @GetMapping("/client/my-orders")
     public ResponseEntity<?> getMyOrders(@RequestHeader("Token") String token) {
         User user = sessions.get(token);
-        if (user == null) return ResponseEntity.status(401).body("Нет авторизации");
+        if (user == null)
+            return ResponseEntity.status(401).body("Нет авторизации");
 
         List<Order> myOrders = new ArrayList<>();
         for (Order o : orders) {

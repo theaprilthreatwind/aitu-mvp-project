@@ -18,6 +18,23 @@ public class FoodService {
     private AtomicInteger categoryIdCounter = new AtomicInteger(1);
     private AtomicInteger dishIdCounter = new AtomicInteger(1);
 
+    public FoodService() {
+        Category mainCourse = addCategory("Фирменные блюда", "То самое легендарное меню", "Los Pollos Hermanos");
+        Category drinks = addCategory("Напитки", "Освежающие напитки", "Los Pollos Hermanos");
+        addInitialDish("Курица по-братски", "Хрустящая корочка, секретные специи", 2500.0, mainCourse.getId());
+        addInitialDish("Крылышки Мета", "Очень острые, осторожно!", 1800.0, mainCourse.getId());
+        addInitialDish("Синяя кола", "Эксклюзивный вкус Альбукерке", 500.0, drinks.getId());
+    }
+
+    private void addInitialDish(String title, String desc, double price, Integer catId) {
+        Dish dish = new Dish();
+        dish.setTitle(title);
+        dish.setDescription(desc);
+        dish.setPrice(price);
+        dish.setCategoryId(catId);
+        this.addDish(dish);
+    }
+
     public List<Category> getCategoriesByRestaurant(String owner) {
         return categories.stream()
                 .filter(c -> c.getOwnerName().equals(owner))
@@ -46,7 +63,9 @@ public class FoodService {
                 .orElse(null);
     }
 
-    public List<Category> getAllCategories() { return categories; }
+    public List<Category> getAllCategories() {
+        return categories;
+    }
 
     public List<Dish> getDishesByCategoryId(Integer categoryId) {
         return dishes.stream()
