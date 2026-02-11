@@ -10,3 +10,4 @@ export { LoadingSkeleton } from "./loading-skeleton/loading-skeleton.jsx";
 export { fetchCategories } from "./api/fetch-categories.js";
 export { fetchProducts } from "./api/fetch-products.js";
 export { getAvailableRestaurants } from "./api/get-available-restaurants";
+export { sendIncomingVisitor } from "./api/send-incoming-visitor.js"

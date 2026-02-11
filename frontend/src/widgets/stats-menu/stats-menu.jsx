@@ -2,11 +2,11 @@
 
 import { Suspense, use, useEffect, useMemo, useState } from "react";
 import { fetchStats } from "./api/fetch-stats";
+import Link from "next/link";
 
 const statsCache = new Map();
 
-export function StatsMenu({ token }) {
-
+export function StatsMenu({ token, restaurantTitle }) {
   if (!statsCache.has(token)) {
     statsCache.set(token, fetchStats(token));
   }
@@ -18,7 +18,7 @@ export function StatsMenu({ token }) {
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
         <div className="text-2xl">Restaurant's statistic</div>
       </header>
-      <section className="pl-4 mt-4 overflow-hidden box-border">
+      <section className="pl-4 mx-4">
         <div>
           <div>
             Total income:{" "}
@@ -32,7 +32,15 @@ export function StatsMenu({ token }) {
             Total orders:{" "}
             <span>{stats === null ? "Wait..." : stats.totalVisitors}</span>
           </div>
+          <div>
+            Total views:{" "}
+            <span>{stats === null ? "Wait..." : stats.totalViews}</span>
+          </div>
         </div>
+
+        <Link href={`/restaurants/${restaurantTitle}/admin/heatmap`} className="bg-sky-500 px-4 py-3 rounded-2xl text-white hover:bg-sky-600 mt-6">
+          Посмотреть карту теплоты
+        </Link>
       </section>
     </main>
   );

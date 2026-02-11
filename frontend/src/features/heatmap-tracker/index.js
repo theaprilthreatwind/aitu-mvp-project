@@ -1,1 +1,0 @@
-export { HeatmapTracker } from "./ui/heatmap-tracker";

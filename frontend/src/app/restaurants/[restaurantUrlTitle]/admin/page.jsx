@@ -24,7 +24,9 @@ export default function AdminPanel({ params }) {
       case "menu":
         return <AdminMenu restaurantName={cleanRestaurantUrlTitle} />;
       case "stats":
-        return <StatsMenu restaurantName={cleanRestaurantUrlTitle} token={token} />;
+        return (
+          <StatsMenu restaurantTitle={cleanRestaurantUrlTitle} token={token} />
+        );
       case "orders":
         return <OrdersMenu restaurantName={cleanRestaurantUrlTitle} />;
       case "qr-code":
@@ -34,7 +36,6 @@ export default function AdminPanel({ params }) {
     }
   };
 
-  console.log(token);
   useEffect(() => {
     const token = sessionStorage.getItem("mangerAuthToken");
     setToken(token);

@@ -9,7 +9,7 @@ export function RestaurantHeader({ restaurantName }) {
     console.log({ innerWidth, innerHeight });
   }
   return (
-    <header className="flex items-center justify-between bg-white mx-auto mt-6.25 my-10 h-12 max-w-375 text-3xl">
+    <header className="flex items-center justify-between bg-white mx-auto mt-6.25 mb-10 h-12 max-w-375 text-3xl">
       <div className="font-semibold">{restaurantName}</div>
       <nav className="grid grid-cols-2 gap-2 font-extralight">
         {/* <UXButton variant="secondary" color="sky" size="medium">

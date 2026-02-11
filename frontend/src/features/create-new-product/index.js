@@ -1,0 +1,1 @@
+export { CreateNewProductUI } from "./ui/create-new-product-ui";

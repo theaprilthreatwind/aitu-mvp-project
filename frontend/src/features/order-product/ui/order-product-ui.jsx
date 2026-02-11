@@ -30,7 +30,7 @@ export function OrderProductUI({ productId }) {
       >
         <button
           onClick={() => setIsPopoverOpen((prev) => !prev)}
-          className="bg-sky-500 text-white text-2xl px-6 py-3 rounded-2xl z-50"
+          className="bg-sky-500 text-white text-2xl px-6 py-3 rounded-2xl z-40"
         >
           Order
         </button>

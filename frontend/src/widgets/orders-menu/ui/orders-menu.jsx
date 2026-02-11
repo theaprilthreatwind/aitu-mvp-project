@@ -28,15 +28,15 @@ export function OrdersMenu() {
           {orders === null ? (
             <div className="text-6xl text-gray-400">No orders yet</div>
           ) : (
-            orders.map((dish, productIndex) => {
+            orders.map((product, index) => {
               return (
                 <ProductUI
-                  key={productIndex}
-                  name={dish.title}
-                  description={dish.description}
-                  price={dish.price}
-                  photoUrl={dish.photoUrl}
-                  className={"relative mr-5"}
+                  key={index}
+                  title={product.items[0].title}
+                  description={product.items[0].description}
+                  price={product.items[0].price}
+                  photoUrl={product.items[0].photoUrl}
+                  className="relative mr-5"
                 />
               );
             })

@@ -19,13 +19,12 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
 
   async function submitNewDish(formData) {
     try {
-      formData.preventDefault;
       setIsModalopen(false);
       const dishName = formData.get("dishName");
       const description = formData.get("description");
       const price = Number(formData.get("price"));
       const photo = formData.get("photo");
-      const token = sessionStorage.getItem("mangerAuthToken")
+      const token = sessionStorage.getItem("mangerAuthToken");
       const uploadRes = await startUpload([photo]);
       const photoUrl = uploadRes[0].ufsUrl;
       const response = await fetchNewProduct(
@@ -34,10 +33,10 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
         description,
         price,
         photoUrl,
-        token
+        token,
       );
       console.log(response);
-      setShouldFetchMenu(true)
+      setShouldFetchMenu(true);
     } catch (error) {
       console.log(error.message);
     }
@@ -48,7 +47,7 @@ export function NewProductCard({ categoryId, setShouldFetchMenu }) {
         <img src="/food.jpg" alt="dish" className="h-40 w-full object-cover" />
         <Popover
           isOpen={isModalOpen}
-          positions={["bottom", 'right']}
+          positions={["bottom", "right"]}
           padding={10}
           reposition={true}
           onClickOutside={() => setIsModalopen(false)}

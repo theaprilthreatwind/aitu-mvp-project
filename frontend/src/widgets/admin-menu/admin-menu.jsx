@@ -14,7 +14,7 @@ export function AdminMenu({ restaurantName }) {
   const [menu, setMenu] = useState(null);
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [shouldFetchMenu, setShouldFetchMenu] = useState(true);
-  console.log(menu)
+  console.log(menu);
 
   useEffect(() => {
     try {
@@ -126,12 +126,12 @@ export function AdminMenu({ restaurantName }) {
                   {category.products.map((dish, productIndex) => {
                     return (
                       <ProductUI
-                        name={dish.title}
+                        title={dish.title}
                         description={dish.description}
                         price={dish.price}
                         key={productIndex}
                         photoUrl={dish.photoUrl}
-                        className={"relative mr-5"}
+                        className="relative mr-5"
                       >
                         <div>
                           <div className="flex justify-between">
@@ -155,10 +155,10 @@ export function AdminMenu({ restaurantName }) {
                       </ProductUI>
                     );
                   })}
-                  <NewProductCard
-                    categoryId={category.id}
-                    setShouldFetchMenu={setShouldFetchMenu}
-                  />
+                    <NewProductCard
+                      categoryId={category.id}
+                      setShouldFetchMenu={setShouldFetchMenu}
+                    />
                 </div>
               </div>
             );

@@ -1,21 +1,22 @@
 "use server";
 
+import { HeatmapTracker } from "./ui/heatmap-tracker";
 import { getRestaurantInformation } from "@/entities";
-import { HeatmapTracker } from "@/features";
+import { sendIncomingVisitor } from "@/shared";
 import {
   AssistantMenu,
   Menu,
   RestaurantHeader,
   RestaurantInfo,
 } from "@/widgets";
-
 export default async function Restaraunt({ params }) {
   const { restaurantUrlTitle } = await params;
-  
+
   const cleanRestaurantUrlTitle = decodeURIComponent(restaurantUrlTitle);
 
   const restaurant = await getRestaurantInformation(cleanRestaurantUrlTitle);
 
+  await sendIncomingVisitor(cleanRestaurantUrlTitle);
   return (
     <>
       {restaurant === null ? (
@@ -31,7 +32,7 @@ export default async function Restaraunt({ params }) {
             restaurantMenu={restaurant.categories}
             restaurantTitle={restaurant.title}
           />
-
+          <HeatmapTracker restaurantTitle={restaurant.title} />
         </>
       )}
     </>
