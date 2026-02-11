@@ -3,9 +3,8 @@
 import { ProductUI } from "@/entities";
 import { OrderProductUI } from "@/features";
 import { ProductLayout } from "@/shared";
-import { useState } from "react";
 
-export function Menu({ restaurantMenu }) {
+export function RestaurantMenu({ restaurantMenu }) {
   return (
     <section className="max-w-383 mx-auto p-4 shadow-2xl rounded-2xl">
       {restaurantMenu.map((categoryElement, index) => (
@@ -16,7 +15,7 @@ export function Menu({ restaurantMenu }) {
           </div>
           <div className="flex overflow-x-scroll p-5 gap-4 min-h-80 border border-gray-200 rounded-2xl">
             {categoryElement.products.map((productElement, index) => (
-              <ProductLayout photoUrl={productElement.photoUrl}>
+              <ProductLayout key={index} photoUrl={productElement.photoUrl}>
                 <ProductUI
                   categoryId={productElement.categoryId}
                   title={productElement.title}
@@ -24,7 +23,6 @@ export function Menu({ restaurantMenu }) {
                   price={productElement.price}
                   photoUrl={productElement.photoUrl}
                   productId={productElement.productId}
-                  key={index}
                 >
                   <OrderProductUI productId={productElement.productId} />
                 </ProductUI>

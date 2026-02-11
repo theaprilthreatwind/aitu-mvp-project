@@ -4,7 +4,7 @@ import { fetchAssistantResponse } from "../api/fetch-assistant-response";
 import { FaPaperPlane } from "react-icons/fa6";
 import { useState } from "react";
 
-export function AssistantSendForm({ assistantChat, setAssistantChat }) {
+export function AssistantSendForm({ assistantChat, setAssistantChat, restaurantMenu }) {
   const [userText, setUserText] = useState("");
 
   async function handleSubmitForm(formData) {
@@ -16,8 +16,8 @@ export function AssistantSendForm({ assistantChat, setAssistantChat }) {
     }));
 
     setUserText("");
-
-    const assistantText = await fetchAssistantResponse(userText);
+    const stringifiedMenu = JSON.stringify(restaurantMenu)
+    const assistantText = await fetchAssistantResponse(userText, stringifiedMenu);
 
     setAssistantChat((prev) => ({
       history: [...prev.history, { role: "assistant", content: assistantText }],

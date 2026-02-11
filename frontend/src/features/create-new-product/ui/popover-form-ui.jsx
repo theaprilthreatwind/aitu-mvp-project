@@ -1,7 +1,9 @@
+import { UXButton, UXInput } from "@/shared";
+
 export function PopoverFormUI({ onSubmit }) {
   return (
-    <form action={onSubmit}>
-      <div className="flex flex-col">
+    <form action={onSubmit} className="bg-white px-4 py-3 border border-gray-200 shadow-xl rounded-2xl">
+      <div className="flex flex-col ">
         <div className="flex flex-col">
           <label className="text-2xl font-bold mb-2 ">Name of dish</label>
           <UXInput type="text" name="dishName" step="0.01" />
@@ -13,10 +15,8 @@ export function PopoverFormUI({ onSubmit }) {
         <div className="flex flex-col">
           <label className="text-2xl font-bold mb-2">Price</label>
           <UXInput
-            type="number"
+            type="numeric"
             name="price"
-            value={price}
-            onChange={(e) => handlePrice(e.target.value)}
           />
           <div className="flex flex-col">
             <label className="text-2xl font-bold mb-2 ">Photo</label>

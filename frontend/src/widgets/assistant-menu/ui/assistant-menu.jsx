@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { MessageUI } from "@/entities";
 import { AssistantSendForm } from "@/features";
 
-export function AssistantMenu() {
+export function AssistantMenu({ restaurantMenu }) {
   const [assistantChat, setAssistantChat] = useState({
     history: [],
     status: "typing",
@@ -18,7 +18,7 @@ export function AssistantMenu() {
     if (!chatMenuRef.current?.contains(event.target) && isChatMenuShown) {
       setIsChatMenuShown(false);
     }
-    }
+  }
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -41,6 +41,7 @@ export function AssistantMenu() {
           <AssistantSendForm
             setAssistantChat={setAssistantChat}
             assistantChat={assistantChat}
+            restaurantMenu={restaurantMenu}
           />
         </div>
       </div>

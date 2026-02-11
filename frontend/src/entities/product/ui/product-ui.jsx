@@ -34,11 +34,10 @@ export function ProductUI({
     photoUrl,
     productId,
   );
+
   return (
     <div className={className} {...props}>
-      <div className="text-lg font-bold flex">
-        Названия блюда: {product.title}
-      </div>
+      <div className="text-xl font-bold flex">{product.title}</div>
       <div className="text-lg text-gray-600">{product.description}</div>
       <div className="text-lg text-gray-600">Цена: {product.price} тенге</div>
       <div className="mt-2">{children}</div>

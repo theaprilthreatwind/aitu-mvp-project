@@ -5,7 +5,7 @@ import { getRestaurantInformation } from "@/entities";
 import { sendIncomingVisitor } from "@/shared";
 import {
   AssistantMenu,
-  Menu,
+  RestaurantMenu,
   RestaurantHeader,
   RestaurantInfo,
 } from "@/widgets";
@@ -27,7 +27,7 @@ export default async function Restaraunt({ params }) {
         <>
           <RestaurantHeader restaurantName={restaurant.title} />
           <RestaurantInfo restaurantName={restaurant.title} />
-          <Menu restaurantMenu={restaurant.categories} />
+          <RestaurantMenu restaurantMenu={restaurant.categories} />
           <AssistantMenu
             restaurantMenu={restaurant.categories}
             restaurantTitle={restaurant.title}
