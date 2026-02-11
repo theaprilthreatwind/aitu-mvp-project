@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic"
 
 import React, { use } from "react";
 import { useState } from "react";
@@ -6,7 +7,6 @@ import "./App.css";
 import Link from "next/link";
 import { fetchRestaurantList } from "@/shared";
 
-export const dynamic = "force-dynamic"
 
 const Search = () => {
   const [search, setSearch] = useState("");
