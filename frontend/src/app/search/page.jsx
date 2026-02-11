@@ -6,12 +6,13 @@ import "./App.css";
 import Link from "next/link";
 import { fetchRestaurantList } from "@/shared";
 
+export const dynamic = "force-dynamic"
+
 const Search = () => {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
 
   const RESTAURANTS = use(fetchRestaurantList())
-  console.log(RESTAURANTS)
   const filteredRestaurants = RESTAURANTS.filter((restaurant) => {
     const matchesSearch = restaurant
       .toLowerCase()
