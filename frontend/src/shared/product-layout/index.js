@@ -1,0 +1,1 @@
+export { productLayout } from "./ui/product-layout";
