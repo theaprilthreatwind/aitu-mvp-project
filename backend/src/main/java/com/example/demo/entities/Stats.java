@@ -3,6 +3,7 @@ package com.example.demo.entities;
 public class Stats {
     private double totalRevenue;
     private int totalCustomers;
+    private int totalVisitors;
 
     public Stats(double totalRevenue, int totalCustomers) {
         this.totalRevenue = totalRevenue;
@@ -15,5 +16,9 @@ public class Stats {
 
     public int getTotalCustomers() {
         return totalCustomers;
+    }
+
+    public int getTotalVisitors() {
+        return totalVisitors;
     }
 }

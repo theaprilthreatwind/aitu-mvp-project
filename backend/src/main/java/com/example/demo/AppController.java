@@ -25,6 +25,7 @@ public class AppController {
     private List<User> users = new CopyOnWriteArrayList<>();
     private List<Order> orders = new CopyOnWriteArrayList<>();
     private Map<String, User> sessions = new ConcurrentHashMap<>();
+    private Map<String, Integer> restaurantViews = new ConcurrentHashMap<>();
 
     private final FoodService foodService;
 
@@ -214,7 +215,9 @@ public class AppController {
                 .distinct()
                 .count();
 
-        return ResponseEntity.ok(new RestaurantStats(totalIncome, dailyIncome, TotalOrders));
+        long views = restaurantViews.getOrDefault(restaurantName, 0).longValue();
+
+        return ResponseEntity.ok(new RestaurantStats(totalIncome, dailyIncome, TotalOrders, views));
     }
 
     @GetMapping("/admin/orders")
@@ -251,7 +254,22 @@ public class AppController {
         }
         return ResponseEntity.ok(restaurants);
     }
-    
+
+    @PostMapping("/{restaurantName}/view")
+    public ResponseEntity<?> addView(@PathVariable String restaurantName) {
+        boolean exists = users.stream()
+                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(restaurantName));
+
+        if (!exists) {
+            return ResponseEntity.status(404).body("Ресторан не найден");
+        }
+
+        restaurantViews.merge(restaurantName, 1, Integer::sum);
+
+        int currentViews = restaurantViews.get(restaurantName);
+        return ResponseEntity.ok("Просмотр засчитан. Всего просмотров: " + currentViews);
+    }
+
     @PostMapping("/client/order")
     public ResponseEntity<?> createOrder(@RequestBody OrderRequest request) {
 
