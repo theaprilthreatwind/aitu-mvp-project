@@ -2,6 +2,7 @@
 
 import { ProductUI } from "@/entities";
 import { OrderProductUI } from "@/features";
+import { ProductLayout } from "@/shared";
 import { useState } from "react";
 
 export function Menu({ restaurantMenu }) {
@@ -15,17 +16,19 @@ export function Menu({ restaurantMenu }) {
           </div>
           <div className="flex overflow-x-scroll p-5 gap-4 min-h-80 border border-gray-200 rounded-2xl">
             {categoryElement.products.map((productElement, index) => (
-              <ProductUI
-                categoryId={productElement.categoryId}
-                title={productElement.title}
-                description={productElement.description}
-                price={productElement.price}
-                photoUrl={productElement.photoUrl}
-                productId={productElement.productId}
-                key={index}
-              >
-                <OrderProductUI productId={productElement.productId} />
-              </ProductUI>
+              <ProductLayout photoUrl={productElement.photoUrl}>
+                <ProductUI
+                  categoryId={productElement.categoryId}
+                  title={productElement.title}
+                  description={productElement.description}
+                  price={productElement.price}
+                  photoUrl={productElement.photoUrl}
+                  productId={productElement.productId}
+                  key={index}
+                >
+                  <OrderProductUI productId={productElement.productId} />
+                </ProductUI>
+              </ProductLayout>
             ))}
           </div>
         </div>
