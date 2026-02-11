@@ -4,6 +4,5 @@ export async function fetchRestaurantList() {
   });
 
   const data = await response.json();
-  console.log(data, "fuck")
   return data;
 }

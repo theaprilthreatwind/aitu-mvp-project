@@ -18,7 +18,7 @@ export function StatsMenu({ token, restaurantTitle }) {
       <header className="flex px-6 items-center shadow-md w-full h-15 border-b border-neutral-200 z-20">
         <div className="text-2xl">Restaurant's statistic</div>
       </header>
-      <section className="pl-4 mx-4">
+      <section className="pl-4 mx-4 text-2xl flex flex-col">
         <div>
           <div>
             Total income:{" "}
@@ -38,7 +38,10 @@ export function StatsMenu({ token, restaurantTitle }) {
           </div>
         </div>
 
-        <Link href={`/restaurants/${restaurantTitle}/admin/heatmap`} className="bg-sky-500 px-4 py-3 rounded-2xl text-white hover:bg-sky-600 mt-6">
+        <Link
+          href={`/restaurants/${restaurantTitle}/admin/heatmap`}
+          className="bg-sky-500 px-4 py-3 rounded-2xl text-white hover:bg-sky-600 self-start"
+        >
           Посмотреть карту теплоты
         </Link>
       </section>
