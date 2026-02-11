@@ -15,8 +15,8 @@ const Search = () => {
   const RESTAURANTS = use(fetchRestaurantList())
   const filteredRestaurants = RESTAURANTS.filter((restaurant) => {
     const matchesSearch = restaurant
-      .toLowerCase()
-      .includes(search.toLowerCase());
+      ?.toLowerCase()
+      ?.includes(search.toLowerCase());
 
     const matchesCategory =
       activeCategory === "All" || restaurant.category === activeCategory;
