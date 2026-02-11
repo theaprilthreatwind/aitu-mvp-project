@@ -26,6 +26,7 @@ public class AppController {
     private List<Order> orders = new CopyOnWriteArrayList<>();
     private Map<String, User> sessions = new ConcurrentHashMap<>();
     private Map<String, Integer> restaurantViews = new ConcurrentHashMap<>();
+    private Map<String, List<MousePoint>> mouseTrackingData = new ConcurrentHashMap<>();
 
     private final FoodService foodService;
 
@@ -330,5 +331,33 @@ public class AppController {
             }
         }
         return ResponseEntity.ok(myOrders);
+    }
+
+    // TODO Страница 3: Логика и хранение точек указателя
+
+    @PostMapping("/{restaurantName}/setMousePoints")
+    public ResponseEntity<?> setMousePoints(
+            @PathVariable String restaurantName,
+            @RequestBody List<MousePoint> points) {
+
+        boolean exists = users.stream()
+                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(restaurantName));
+
+        if (!exists) {
+            return ResponseEntity.status(404).body("Ресторан не найден");
+        }
+
+        mouseTrackingData.computeIfAbsent(restaurantName, k -> new CopyOnWriteArrayList<>())
+                .addAll(points);
+
+        return ResponseEntity.ok("Данные успешно сохранены. Всего точек: " +
+                mouseTrackingData.get(restaurantName).size());
+    }
+
+    @GetMapping("/{restaurantName}/getMousePoints")
+    public ResponseEntity<?> getMousePoints(@PathVariable String restaurantName) {
+        List<MousePoint> points = mouseTrackingData.getOrDefault(restaurantName, Collections.emptyList());
+
+        return ResponseEntity.ok(points);
     }
 }

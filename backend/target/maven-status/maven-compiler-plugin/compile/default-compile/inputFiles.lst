@@ -1,6 +1,7 @@
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/AppController.java
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/MdEatOsApplication.java
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/WebConfig.java
+/home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/entities/MousePoint.java
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/entities/Role.java
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/entities/Stats.java
 /home/beibarys/Coding/Frontend/restaurant-business/backend/src/main/java/com/example/demo/entities/Status.java
