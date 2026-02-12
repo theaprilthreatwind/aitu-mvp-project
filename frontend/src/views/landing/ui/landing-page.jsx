@@ -12,12 +12,11 @@ import {
 } from "@/widgets/landing";
 
 export function LandingPage() {
-  console.log(styles)
   return (
     <>
       <HeroSection styles={styles} />
       <About styles={styles} />
-      <Search styles={styles} />
+      <Search />
       <Qualities styles={styles} />
       <LandingMenu styles={styles} />
       <WhoWeAre styles={styles} />
