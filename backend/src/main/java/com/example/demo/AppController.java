@@ -12,6 +12,9 @@ import com.example.demo.service.RestaurantStats;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -241,7 +244,9 @@ public class AppController {
 
     @GetMapping("/menu/{restaurantName}")
     public ResponseEntity<?> getRestaurantMenu(@PathVariable String restaurantName) {
-        List<Category> menu = foodService.getCategoriesByRestaurant(restaurantName);
+        String decodedName = URLDecoder.decode(restaurantName, StandardCharsets.UTF_8);
+
+        List<Category> menu = foodService.getCategoriesByRestaurant(decodedName);
         return ResponseEntity.ok(menu);
     }
 
@@ -258,8 +263,10 @@ public class AppController {
 
     @PostMapping("/{restaurantName}/view")
     public ResponseEntity<?> addView(@PathVariable String restaurantName) {
+        String decodedName = URLDecoder.decode(restaurantName, StandardCharsets.UTF_8);
+
         boolean exists = users.stream()
-                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(restaurantName));
+                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(decodedName));
 
         if (!exists) {
             return ResponseEntity.status(404).body("Ресторан не найден");
@@ -340,23 +347,27 @@ public class AppController {
             @PathVariable String restaurantName,
             @RequestBody List<MousePoint> points) {
 
+        String decodedName = URLDecoder.decode(restaurantName, StandardCharsets.UTF_8);
+
         boolean exists = users.stream()
-                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(restaurantName));
+                .anyMatch(u -> u.getRole() == Role.MANAGER && u.getUsername().equalsIgnoreCase(decodedName));
 
         if (!exists) {
             return ResponseEntity.status(404).body("Ресторан не найден");
         }
 
-        mouseTrackingData.computeIfAbsent(restaurantName, k -> new CopyOnWriteArrayList<>())
+        mouseTrackingData.computeIfAbsent(decodedName, k -> new CopyOnWriteArrayList<>())
                 .addAll(points);
 
         return ResponseEntity.ok("Данные успешно сохранены. Всего точек: " +
-                mouseTrackingData.get(restaurantName).size());
+                mouseTrackingData.get(decodedName).size());
     }
 
     @GetMapping("/{restaurantName}/getMousePoints")
     public ResponseEntity<?> getMousePoints(@PathVariable String restaurantName) {
-        List<MousePoint> points = mouseTrackingData.getOrDefault(restaurantName, Collections.emptyList());
+        String decodedName = URLDecoder.decode(restaurantName, StandardCharsets.UTF_8);
+
+        List<MousePoint> points = mouseTrackingData.getOrDefault(decodedName, Collections.emptyList());
 
         return ResponseEntity.ok(points);
     }
