@@ -7,10 +7,13 @@ export async function fetchRestaurantList() {
       },
     );
 
+    if (!response.ok) return [];
+
     const data = await response.json();
-    return data || [];
+
+    return Array.isArray(data) ? data : [];
   } catch (error) {
     console.error(error.message);
-    return []
+    return [];
   }
 }

@@ -1,19 +1,22 @@
 "use client";
-export const dynamic = "force-dynamic"
-
-import React, { use } from "react";
+export const dynamic = "force-dynamic";
+import React, { use, useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import Link from "next/link";
 import { fetchRestaurantList } from "@/shared";
 
-
 const Search = () => {
   const [search, setSearch] = useState("");
+  const [restaurants, setRestaurants] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const RESTAURANTS = use(fetchRestaurantList())
-  const filteredRestaurants = RESTAURANTS.filter((restaurant) => {
+  useEffect(() => {
+    fetchRestaurantList().then((data) => {
+      setRestaurants(Array.isArray(data) ? data : []);
+    });
+  }, []);
+  const filteredRestaurants = restaurants.filter((restaurant) => {
     const matchesSearch = restaurant
       ?.toLowerCase()
       ?.includes(search.toLowerCase());
@@ -51,7 +54,7 @@ const Search = () => {
 
 export default Search;
 
-function RestaurantGrid({restaurants}) {
+function RestaurantGrid({ restaurants }) {
   return (
     <div className="restaurants-grid">
       {restaurants.length ? (
