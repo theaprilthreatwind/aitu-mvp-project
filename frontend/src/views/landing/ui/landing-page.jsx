@@ -1,3 +1,5 @@
+
+
 import styles from "./page.module.css";
 import { Search } from "@/widgets/landing/search";
 import {
@@ -9,11 +11,13 @@ import {
   Reservation,
   Footer,
   LandingMenu,
+  Navbar,
 } from "@/widgets/landing";
 
 export function LandingPage() {
   return (
     <>
+      <Navbar styles={styles}/>
       <HeroSection styles={styles} />
       <About styles={styles} />
       <Search />
