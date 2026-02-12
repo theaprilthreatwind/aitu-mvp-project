@@ -1,7 +1,7 @@
 "use server";
 
 import {
-  Menu,
+  RestaurantMenu,
   RestaurantHeader,
   RestaurantInfo,
 } from "@/widgets";
@@ -26,7 +26,7 @@ export default async function Heatmap({ params }) {
           <HeatmapDisplayUI points={mousePoints} />
           <RestaurantHeader restaurantName={restaurant.title} />
           <RestaurantInfo restaurantName={restaurant.title} />
-          <Menu restaurantMenu={restaurant.categories} />
+          <RestaurantMenu restaurantMenu={restaurant.categories} />
         </div>
       )}
     </>

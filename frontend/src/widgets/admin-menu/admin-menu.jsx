@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { getRestaurantInformation, ProductUI } from "@/entities";
 import { Popover } from "react-tiny-popover";
-import { GenerateId, UXButton, UXInput } from "@/shared";
-import { NewProductCard } from "@/features";
+import { GenerateId, ProductLayout, UXButton, UXInput } from "@/shared";
+import { CreateNewProductUI, NewProductCard } from "@/features";
 import { fetchNewCategory } from "./api/fetch-new-category";
 import { RxCross1 } from "react-icons/rx";
 import { fetchDeleteDish } from "./api/fetch-delete-dish";
@@ -14,7 +14,6 @@ export function AdminMenu({ restaurantName }) {
   const [menu, setMenu] = useState(null);
   const [isAddCategoryOpen, setIsAddCategoryOpen] = useState(false);
   const [shouldFetchMenu, setShouldFetchMenu] = useState(true);
-  console.log(menu);
 
   useEffect(() => {
     try {
@@ -34,7 +33,6 @@ export function AdminMenu({ restaurantName }) {
   async function submitNewCategory(formData) {
     try {
       formData.preventDefault;
-      setIsAddCategoryOpen(false);
       const title = formData.get("title");
       const description = formData.get("description");
       const token = sessionStorage.getItem("mangerAuthToken");
@@ -123,42 +121,55 @@ export function AdminMenu({ restaurantName }) {
               <div className="mt-4" key={category.id}>
                 <div className="text-4xl font-bold">{category.title}</div>
                 <div className="overflow-x-scroll flex gap-2 py-4">
-                  {category.products.map((dish, productIndex) => {
+                  {category.products.map((productElement, index) => {
                     return (
-                      <ProductUI
-                        title={dish.title}
-                        description={dish.description}
-                        price={dish.price}
-                        key={productIndex}
-                        photoUrl={dish.photoUrl}
-                        className="relative mr-5"
+                      <ProductLayout
+                        key={index}
+                        photoUrl={productElement.photoUrl}
                       >
-                        <div>
-                          <div className="flex justify-between">
-                            <UXButton
-                              variant="primary"
-                              size="small"
-                              color="sky"
-                            >
-                              Изменить
-                            </UXButton>
-                            <UXButton
-                              variant="primary"
-                              size="small"
-                              color="red"
-                              onClick={() => handleDeleteDish(dish.id)}
-                            >
-                              Удалить
-                            </UXButton>
+                        <ProductUI
+                          title={productElement.title}
+                          description={productElement.description}
+                          price={productElement.price}
+                          photoUrl={productElement.photoUrl}
+                          className="relative mr-5"
+                        >
+                          <div>
+                            <div className="flex justify-between">
+                              <UXButton
+                                variant="primary"
+                                size="small"
+                                color="sky"
+                              >
+                                Изменить
+                              </UXButton>
+                              <UXButton
+                                variant="primary"
+                                size="small"
+                                color="red"
+                                onClick={() =>
+                                  handleDeleteDish(productElement.productId)
+                                }
+                              >
+                                Удалить
+                              </UXButton>
+                            </div>
                           </div>
-                        </div>
-                      </ProductUI>
+                        </ProductUI>
+                      </ProductLayout>
                     );
                   })}
-                    <NewProductCard
+                  <ProductLayout
+                    photoUrl={
+                      "https://pic.onlinewebfonts.com/thumbnails/icons_591128.svg"
+                    }
+                  >
+                    <CreateNewProductUI
+                      className="flex justify-center"
                       categoryId={category.id}
                       setShouldFetchMenu={setShouldFetchMenu}
                     />
+                  </ProductLayout>
                 </div>
               </div>
             );

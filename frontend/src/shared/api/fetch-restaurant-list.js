@@ -8,7 +8,7 @@ export async function fetchRestaurantList() {
     );
 
     const data = await response.json();
-    return data;
+    return data || [];
   } catch (error) {
     console.error(error.message);
     return []

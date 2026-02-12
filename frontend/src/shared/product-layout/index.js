@@ -1,1 +1,1 @@
-export { productLayout } from "./ui/product-layout";
+export { ProductLayout } from "./ui/product-layout";

@@ -26,11 +26,6 @@ export function ProductUI({
   className,
   ...props
 }) {
-  const classNames = clsx(
-    "w-70 w-max-50 rounded-2xl shadow-xl text-gray-800 overflow-hidden",
-    className,
-  );
-
   const product = Product(
     categoryId,
     title,
@@ -39,27 +34,13 @@ export function ProductUI({
     photoUrl,
     productId,
   );
+
   return (
-    <div {...props}>
-      <div className={classNames}>
-        <img
-          src={product.photoUrl}
-          alt="dish"
-          className="h-40 w-full object-cover"
-        />
-        <div className="px-4 py-2 justify">
-          <div className="">
-            <div className="text-lg font-bold flex">
-              Названия блюда: {product.title}
-            </div>
-            <div className="text-lg text-gray-600">{product.description}</div>
-            <div className="text-lg text-gray-600">
-              Цена: {product.price} тенге
-            </div>
-          </div>
-          <div className="mt-2">{children}</div>
-        </div>
-      </div>
+    <div className={className} {...props}>
+      <div className="text-xl font-bold flex">{product.title}</div>
+      <div className="text-lg text-gray-600">{product.description}</div>
+      <div className="text-lg text-gray-600">Цена: {product.price} тенге</div>
+      <div className="mt-2">{children}</div>
     </div>
   );
 }

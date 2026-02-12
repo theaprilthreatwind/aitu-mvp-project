@@ -3,6 +3,7 @@
 import { ProductUI } from "@/entities";
 import { useEffect, useState } from "react";
 import { fetchOrderList } from "../api/fetch-order-list";
+import { ProductLayout } from "@/shared";
 
 export function OrdersMenu() {
   const [orders, setOrders] = useState(null);
@@ -30,14 +31,14 @@ export function OrdersMenu() {
           ) : (
             orders.map((product, index) => {
               return (
-                <ProductUI
-                  key={index}
-                  title={product.items[0].title}
-                  description={product.items[0].description}
-                  price={product.items[0].price}
-                  photoUrl={product.items[0].photoUrl}
-                  className="relative mr-5"
-                />
+                <ProductLayout key={index} photoUrl={product.items[0].photoUrl}>
+                  <ProductUI
+                    title={product.items[0].title}
+                    description={product.items[0].description}
+                    price={product.items[0].price}
+                    photoUrl={product.items[0].photoUrl}
+                  />
+                </ProductLayout>
               );
             })
           )}
