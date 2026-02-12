@@ -15,7 +15,6 @@ export default async function Restaraunt({ params }) {
   const cleanRestaurantUrlTitle = decodeURIComponent(restaurantUrlTitle);
 
   const restaurant = await getRestaurantInformation(cleanRestaurantUrlTitle);
-
   await sendIncomingVisitor(cleanRestaurantUrlTitle);
   return (
     <>
