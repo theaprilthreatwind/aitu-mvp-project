@@ -1,1 +1,0 @@
-export { QRCodeMenu } from "./ui/qr-code-menu";

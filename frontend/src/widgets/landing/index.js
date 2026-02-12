@@ -1,0 +1,10 @@
+export { About } from "./about/about";
+export { Footer } from "./footer/footer";
+export { HeroSection } from "./hero-section/hero-section";
+export { Qualities } from "./qualities/qualities";
+export { WhoWeAre } from "./who-we-are/who-we-are";
+export { Team } from "./team/team";
+export { Reservation } from "./reservation/reservation";
+export { Navbar } from "./navbar/navbar";
+export { LandingMenu } from "./landing-menu/menu";
+import { Search } from "./search";

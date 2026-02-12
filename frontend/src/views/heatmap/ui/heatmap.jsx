@@ -1,10 +1,12 @@
-"use server";
-
-import { RestaurantMenu, RestaurantHeader, RestaurantInfo } from "@/widgets";
-import { HeatmapDisplayUI } from "./ui/heatmap-display-ui";
+import {
+  RestaurantMenu,
+  RestaurantHeader,
+  RestaurantInfo,
+} from "@/widgets/restaurant";
+import { HeatmapDisplayUI } from "./heatmap-display-ui";
 import { getRestaurantInformation } from "@/entities";
 
-export default async function Heatmap({ params }) {
+export async function Heatmap({ params }) {
   const { restaurantUrlTitle } = await params;
 
   const cleanRestaurantUrlTitle = decodeURIComponent(restaurantUrlTitle);
